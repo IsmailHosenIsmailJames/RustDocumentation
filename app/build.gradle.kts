@@ -55,4 +55,7 @@ dependencies {
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   debugImplementation(libs.androidx.compose.ui.tooling)
   debugImplementation(libs.androidx.compose.ui.test.manifest)
+  implementation(libs.androidx.datastore.preferences)
+  implementation(libs.koin.android)
+  implementation(libs.koin.androidx.compose)
 }

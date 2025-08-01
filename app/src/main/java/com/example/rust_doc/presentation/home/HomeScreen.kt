@@ -1,5 +1,8 @@
 package com.example.rust_doc.presentation.home
 
+import android.content.Intent
+import android.net.Uri
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.animation.AnimatedVisibility
@@ -16,15 +19,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-// import androidx.compose.material.icons.filled.ArrowBack // Duplicate import
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.AddHome
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.AddHome
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
-// import androidx.compose.material.icons.outlined.Home // Duplicate import, use filled version or specific outlined if needed
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,7 +38,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-// import androidx.compose.material3.SearchBar // Not used in current TopAppBar, but might be for future
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -46,40 +51,37 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-// import androidx.compose.ui.ExperimentalComposeUiApi // Not explicitly used
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
-  val homeViewModel = HomeScreenViewModel()
+fun HomeScreen(homeViewModel: HomeScreenViewModel = koinViewModel()) {
   val homeState by homeViewModel.state.collectAsState()
   val focusManager = LocalFocusManager.current
 
-  val topAppBarState = rememberTopAppBarState()
-  val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(topAppBarState)
-
   Scaffold(
-    modifier = Modifier
-      .clickable(
-        interactionSource = remember { MutableInteractionSource() },
-        indication = null
-      ) {
-        focusManager.clearFocus()
-      }
-      .nestedScroll(scrollBehavior.nestedScrollConnection),
-    topBar = {
-      HomeTopBar(homeViewModel, homeState, scrollBehavior)
-    }
-  ) { paddingValues ->
-    RustDocumentationScreen(homeViewModel, homeState, Modifier.padding(paddingValues))
+    modifier = Modifier.clickable(
+      interactionSource = remember { MutableInteractionSource() }, indication = null
+    ) {
+      focusManager.clearFocus()
+    }, topBar = {
+      HomeTopBar(homeViewModel, homeState)
+    }) { paddingValues ->
+    RustDocumentationScreen(
+      homeViewModel,
+      homeState,
+      homeViewModel.webViewClient,
+      Modifier.padding(paddingValues),
+    )
   }
 }
 
@@ -89,134 +91,112 @@ fun HomeScreen() {
 fun HomeTopBar(
   homeViewModel: HomeScreenViewModel,
   homeState: HomeScreenState,
-  scrollBehavior: TopAppBarScrollBehavior // Added scrollBehavior parameter
 ) {
-  TopAppBar(
-    scrollBehavior = scrollBehavior, // Passed to TopAppBar
-    title = {
-      OutlinedTextField(
-        modifier = Modifier
-          .minimumInteractiveComponentSize()
-          .padding(end = 15.dp)
-          .fillMaxWidth()
-          .onFocusChanged {
-            homeViewModel.onAction(HomeScreenAction.IsSearchTyping(it.isFocused))
-          },
-        value = homeState.searchQuery,
-        leadingIcon = {
-          Icon(
-            Icons.Default.Search,
-            contentDescription = "Search"
-          )
+  val isFavorite = homeState.allFavoritePath.contains(homeState.currentDocPath)
+  TopAppBar(title = {
+    OutlinedTextField(
+      modifier = Modifier
+        .minimumInteractiveComponentSize()
+        .padding(end = if (homeState.isSearchTyping) 15.dp else 0.dp)
+        .fillMaxWidth()
+        .onFocusChanged {
+          homeViewModel.onAction(HomeScreenAction.IsSearchTyping(it.isFocused))
         },
-        onValueChange = {
-          homeViewModel.onAction(HomeScreenAction.Search(it))
-        },
-        placeholder = {
-          Text("Search")
-        },
-        shape = RoundedCornerShape(100),
-        singleLine = true,
-      )
-    },
-    navigationIcon = {
-      AnimatedVisibility(visible = !homeState.isSearchTyping) {
-        IconButton(onClick = {}) {
-          Icon(
-            imageVector = Icons.Default.Menu,
-            contentDescription = "Home"
-          )
-        }
-      }
-    },
-    actions = {
-      AnimatedVisibility(visible = !homeState.isSearchTyping) {
-        Row {
-          IconButton(
-            onClick = {
-              // TODO: Implement back action
-            }
-          ) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-          }
-          IconButton(
-            onClick = {
-              // TODO: Implement forward action
-            }
-          ) {
-            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Forward")
-          }
-          IconButton(onClick = {
-            homeViewModel.onAction(HomeScreenAction.ShowMenu(true))
-          }) {
-            Icon(
-              imageVector = Icons.Filled.MoreVert,
-              contentDescription = "More options"
-            )
-          }
-        }
-      }
-
-      DropdownMenu(
-        expanded = homeState.showMenu,
-        onDismissRequest = {
-          homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
-        }
-      ) {
-        DropdownMenuItem(
-          leadingIcon = {
-            Icon(Icons.Filled.Home, contentDescription = "Home Icon")
-          },
-          text = {
-            Text("Go Home")
-          },
-          onClick = {
-            // TODO: Implement Go Home action
-            homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
-          }
+      value = homeState.searchQuery,
+      leadingIcon = {
+        Icon(
+          Icons.Default.Search, contentDescription = "Search"
         )
-        DropdownMenuItem(
-          leadingIcon = {
-            Icon(Icons.Outlined.Home, contentDescription = "Home Icon Outline")
-          },
-          text = {
-            Text("Set as Home")
-          },
-          onClick = {
-            // TODO: Implement Set as Home action
-            homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
-          }
-        )
-        DropdownMenuItem(
-          leadingIcon = {
-            Icon(Icons.Filled.Favorite, contentDescription = "Favorites")
-          },
-          text = {
-            Text("All Favorites")
-          },
-          onClick = {
-            // TODO: Implement All Favorites action
-            homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
-          }
-        )
-        DropdownMenuItem(
-          leadingIcon = {
-            Icon(
-              Icons.Outlined.FavoriteBorder,
-              contentDescription = "Favorites"
-            )
-          },
-          text = {
-            Text("Save to Favorites")
-          },
-          onClick = {
-            // TODO: Implement Save to Favorites action
-            homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
-          }
+      },
+      onValueChange = {
+        homeViewModel.onAction(HomeScreenAction.Search(it))
+      },
+      placeholder = {
+        Text("Search")
+      },
+      shape = RoundedCornerShape(100),
+      singleLine = true,
+    )
+  }, navigationIcon = {
+    AnimatedVisibility(visible = !homeState.isSearchTyping) {
+      IconButton(onClick = {}) {
+        Icon(
+          imageVector = Icons.Default.Menu, contentDescription = "Home"
         )
       }
     }
-  )
+  }, actions = {
+    AnimatedVisibility(visible = !homeState.isSearchTyping) {
+      Row {
+        IconButton(
+          onClick = {
+            homeViewModel.onAction(HomeScreenAction.GoBack)
+          }) {
+          Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+        }
+        IconButton(
+          onClick = {
+            homeViewModel.onAction(HomeScreenAction.GoForward)
+          }) {
+          Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Forward")
+        }
+        IconButton(onClick = {
+          homeViewModel.onAction(HomeScreenAction.ShowMenu(true))
+        }) {
+          Icon(
+            imageVector = Icons.Filled.MoreVert, contentDescription = "More options"
+          )
+        }
+      }
+    }
+
+    DropdownMenu(
+      expanded = homeState.showMenu, onDismissRequest = {
+        homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
+      }) {
+      DropdownMenuItem(leadingIcon = {
+        Icon(Icons.Filled.Home, contentDescription = "Home Icon")
+      }, text = {
+        Text("Go Home")
+      }, onClick = {
+        homeViewModel.onAction(HomeScreenAction.GoHome)
+        homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
+      })
+      DropdownMenuItem(leadingIcon = {
+        Icon(Icons.Filled.AddHome, contentDescription = "Home Icon Outline")
+      }, text = {
+        Text("Set as Home")
+      }, onClick = {
+        homeViewModel.onAction(HomeScreenAction.SetAsHome(homeState.currentDocPath))
+        homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
+      })
+      DropdownMenuItem(leadingIcon = {
+        Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Favorites")
+      }, text = {
+        Text("All Favorites")
+      }, onClick = {
+        // TODO: Implement All Favorites action
+        homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
+      })
+      DropdownMenuItem(leadingIcon = {
+        Icon(
+          Icons.Filled.Favorite,
+          contentDescription = "Favorites",
+          tint = if (isFavorite) Color.Red else Color.Gray
+        )
+      }, text = {
+        Text(if (isFavorite) "Remove from Favorites" else "Save to Favorites")
+      }, onClick = {
+        homeViewModel.onAction(
+          if (isFavorite) HomeScreenAction.RemoveFavorite(homeState.currentDocPath)
+          else HomeScreenAction.AddFavorite(
+            homeState.currentDocPath
+          )
+        )
+        homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
+      })
+    }
+  })
 }
 
 
@@ -224,21 +204,24 @@ fun HomeTopBar(
 fun RustDocumentationScreen(
   homeViewModel: HomeScreenViewModel,
   homeState: HomeScreenState,
+  webClient: WebViewClient,
   modifier: Modifier
+
 ) {
   // The path to your main documentation file within the assets folder
-  val docPath = "file:///android_asset/html/index.html"
+  val docPath = homeState.currentDocPath
 
-  AndroidView(modifier = modifier.fillMaxWidth(), factory = { context -> // Added fillMaxWidth to enable scrolling if content is wide
-    WebView(context).apply {
-      webViewClient = WebViewClient() // Ensures links open within the WebView
-      settings.javaScriptEnabled = true // Enable JavaScript if your docs use it
-      settings.allowFileAccess =
-        true    // Important for loading local files and their resources (CSS, JS, images)
-      settings.domStorageEnabled = true  // May be needed for some documentation features
-      loadUrl(docPath)
-    }
-  })
+  AndroidView(
+    modifier = modifier.fillMaxWidth(), factory = { context ->
+      WebView(context).apply {
+        webViewClient = webClient
+        settings.javaScriptEnabled = true
+        settings.allowFileAccess = true
+        settings.domStorageEnabled = true
+        loadUrl(docPath)
+        homeViewModel.onAction(HomeScreenAction.WebViewInstance(this))
+      }
+    })
 }
 
 
