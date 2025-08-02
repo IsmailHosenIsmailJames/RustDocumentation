@@ -156,9 +156,9 @@ class HomeScreenViewModel(private val dataStore: DataStore<Preferences>) : ViewM
 
       is HomeScreenAction.GoHome -> {
         viewModelScope.launch {
-          val homePath = dataStore.data.first()[PreferencesKeys.HOME_PATH] ?: "index.html"
+          val homePath = dataStore.data.first()[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html"
           onAction(HomeScreenAction.ChangeCurrentDoc(homePath)) // This will also update webview
-          _webView?.loadUrl("file://$homePath")
+          _webView?.loadUrl(homePath)
         }
       }
 

@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockReset
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
@@ -44,9 +45,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -57,13 +58,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import org.koin.androidx.compose.koinViewModel
 
@@ -100,15 +106,14 @@ fun HomeTopBar(
   val isFavorite = homeState.allFavoritePath.contains(homeState.currentDocPath)
   val context = LocalContext.current;
   TopAppBar(title = {
-    OutlinedTextField(
+     OutlinedTextField(
       modifier = Modifier
-        .minimumInteractiveComponentSize()
         .padding(end = if (homeState.isSearchTyping) 15.dp else 0.dp)
         .fillMaxWidth()
         .onFocusChanged {
           homeViewModel.onAction(HomeScreenAction.IsSearchTyping(it.isFocused))
         },
-      value = homeState.searchQuery,
+      value = homeState.searchQuery.split("android_asset/").last(),
       leadingIcon = {
         Icon(
           Icons.Default.Search, contentDescription = "Search"
@@ -120,6 +125,7 @@ fun HomeTopBar(
       placeholder = {
         Text("Search")
       },
+       textStyle = TextStyle(fontSize = 14.sp),
       shape = RoundedCornerShape(100),
       singleLine = true,
     )
@@ -199,7 +205,11 @@ fun HomeTopBar(
             homeState.currentDocPath
           )
         )
-        Toast.makeText( context, if (isFavorite) "Removed from Favorites" else "Successfully Added to Favorites", Toast.LENGTH_SHORT).show();
+        Toast.makeText(
+          context,
+          if (isFavorite) "Removed from Favorites" else "Successfully Added to Favorites",
+          Toast.LENGTH_SHORT
+        ).show();
         homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
       })
 
