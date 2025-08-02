@@ -5,6 +5,7 @@ import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -21,10 +22,13 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AddHome
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.LockReset
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
@@ -56,6 +60,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -93,6 +98,7 @@ fun HomeTopBar(
   homeState: HomeScreenState,
 ) {
   val isFavorite = homeState.allFavoritePath.contains(homeState.currentDocPath)
+  val context = LocalContext.current;
   TopAppBar(title = {
     OutlinedTextField(
       modifier = Modifier
@@ -193,6 +199,30 @@ fun HomeTopBar(
             homeState.currentDocPath
           )
         )
+        Toast.makeText( context, if (isFavorite) "Removed from Favorites" else "Successfully Added to Favorites", Toast.LENGTH_SHORT).show();
+        homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
+      })
+
+      DropdownMenuItem(leadingIcon = {
+        Icon(
+          Icons.Default.History,
+          contentDescription = "History",
+        )
+      }, text = {
+        Text("History")
+      }, onClick = {
+        homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
+      })
+
+      DropdownMenuItem(leadingIcon = {
+        Icon(
+          Icons.Default.Delete,
+          contentDescription = "Reset",
+        )
+      }, text = {
+        Text("Reset App")
+      }, onClick = {
+        homeViewModel.onAction(HomeScreenAction.ResetApp)
         homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
       })
     }

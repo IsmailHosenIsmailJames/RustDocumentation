@@ -14,4 +14,5 @@ sealed class HomeScreenAction {
   object GoHome : HomeScreenAction()
   data class SetAsHome(val path: String) : HomeScreenAction()
   data class WebViewInstance(val webView: WebView) : HomeScreenAction()
+  object ResetApp: HomeScreenAction()
 }

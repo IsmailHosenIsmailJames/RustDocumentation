@@ -36,30 +36,35 @@ class HomeScreenViewModel(private val dataStore: DataStore<Preferences>) : ViewM
       val preferences = dataStore.data.first()
       val favoritePaths = preferences[PreferencesKeys.FAVORITE_PATHS] ?: emptySet()
       val homePath = preferences[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html"
+      val history = preferences[PreferencesKeys.HISTORY_OF_VISITED_PATH] ?: emptySet()
       _state.value = _state.value.copy(
         allFavoritePath = favoritePaths.toList(),
         homePath = homePath,
         currentDocPath = homePath, // Start at home path
-        searchQuery = homePath
+        searchQuery = homePath,
+        historyOfVisitedPath = history.toList()
       )
       // Update isThisFavorite based on initial currentDocPath
       _state.value = _state.value.copy(isThisFavorite = favoritePaths.contains(homePath))
 
-      // Observe changes to favorites and home path
+      // Observe changes to favorites, home path and history
       dataStore.data
         .map { prefs ->
-          Pair(
+          Triple(
             prefs[PreferencesKeys.FAVORITE_PATHS] ?: emptySet(),
-            prefs[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html"
+            prefs[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html",
+            prefs[PreferencesKeys.HISTORY_OF_VISITED_PATH] ?: emptySet()
           )
         }
-        .collect { (favorites, home) ->
+        .collect { (favorites, home, history) ->
           _state.value = _state.value.copy(
             allFavoritePath = favorites.toList(),
             homePath = home,
-            isThisFavorite = favorites.contains(_state.value.currentDocPath) // Keep isThisFavorite updated
+            isThisFavorite = favorites.contains(_state.value.currentDocPath), // Keep isThisFavorite updated
+            historyOfVisitedPath = history.toList()
           )
         }
+
     }
   }
 
@@ -71,6 +76,11 @@ class HomeScreenViewModel(private val dataStore: DataStore<Preferences>) : ViewM
             .toMutableList() // Limit history size
           if (history.firstOrNull() != it) { // Avoid duplicate entries at the top
             history.add(0, it)
+          }
+          viewModelScope.launch {
+            dataStore.edit { dataBase ->
+              dataBase[PreferencesKeys.HISTORY_OF_VISITED_PATH] = history.toSet()
+            }
           }
           _state.value = _state.value.copy(
             currentDocPath = it,
@@ -159,6 +169,16 @@ class HomeScreenViewModel(private val dataStore: DataStore<Preferences>) : ViewM
           }
           // UI update for homePath will be handled by the collector in init
           // Optionally, show a confirmation to the user (e.g., via a Toast or Snackbar)
+        }
+      }
+
+      is HomeScreenAction.ResetApp -> {
+        viewModelScope.launch {
+          dataStore.edit {
+            it[PreferencesKeys.FAVORITE_PATHS] = emptySet()
+            it[PreferencesKeys.HOME_PATH] = "file:///android_asset/index.html"
+            it[PreferencesKeys.HISTORY_OF_VISITED_PATH] = emptySet()
+          }
         }
       }
     }
