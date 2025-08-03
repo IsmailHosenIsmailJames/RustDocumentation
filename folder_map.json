@@ -1,0 +1,1895 @@
+{
+    "parent": "/",
+    "children": {
+        "alloc": {
+            "parent": "/",
+            "children": {
+                "alloc": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/alloc/index.html"
+                },
+                "bstr": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/bstr/index.html"
+                },
+                "collections": {
+                    "parent": "/alloc",
+                    "children": {
+                        "binary_heap": {
+                            "parent": "/alloc/collections",
+                            "children": {},
+                            "index_path": "/alloc/collections/binary_heap/index.html"
+                        },
+                        "btree_map": {
+                            "parent": "/alloc/collections",
+                            "children": {},
+                            "index_path": "/alloc/collections/btree_map/index.html"
+                        },
+                        "btree_set": {
+                            "parent": "/alloc/collections",
+                            "children": {},
+                            "index_path": "/alloc/collections/btree_set/index.html"
+                        },
+                        "linked_list": {
+                            "parent": "/alloc/collections",
+                            "children": {},
+                            "index_path": "/alloc/collections/linked_list/index.html"
+                        },
+                        "vec_deque": {
+                            "parent": "/alloc/collections",
+                            "children": {},
+                            "index_path": "/alloc/collections/vec_deque/index.html"
+                        }
+                    },
+                    "index_path": "/alloc/collections/index.html"
+                },
+                "ffi": {
+                    "parent": "/alloc",
+                    "children": {
+                        "c_str": {
+                            "parent": "/alloc/ffi",
+                            "children": {},
+                            "index_path": "/alloc/ffi/c_str/index.html"
+                        }
+                    },
+                    "index_path": "/alloc/ffi/index.html"
+                },
+                "fmt": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/fmt/index.html"
+                },
+                "rc": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/rc/index.html"
+                },
+                "slice": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/slice/index.html"
+                },
+                "boxed": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/boxed/index.html"
+                },
+                "borrow": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/borrow/index.html"
+                },
+                "str": {
+                    "parent": "/alloc",
+                    "children": {
+                        "pattern": {
+                            "parent": "/alloc/str",
+                            "children": {},
+                            "index_path": "/alloc/str/pattern/index.html"
+                        }
+                    },
+                    "index_path": "/alloc/str/index.html"
+                },
+                "string": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/string/index.html"
+                },
+                "sync": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/sync/index.html"
+                },
+                "task": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/task/index.html"
+                },
+                "vec": {
+                    "parent": "/alloc",
+                    "children": {},
+                    "index_path": "/alloc/vec/index.html"
+                }
+            },
+            "index_path": "/alloc/index.html"
+        },
+        "book": {
+            "parent": "",
+            "children": {
+                "2018-edition": {
+                    "parent": "/book",
+                    "children": {},
+                    "index_path": "/book/2018-edition/index.html"
+                },
+                "first-edition": {
+                    "parent": "/book",
+                    "children": {},
+                    "index_path": "/book/first-edition/index.html"
+                },
+                "second-edition": {
+                    "parent": "/book",
+                    "children": {},
+                    "index_path": "/book/second-edition/index.html"
+                }
+            },
+            "index_path": "/book/index.html"
+        },
+        "cargo": {
+            "parent": "",
+            "children": {
+                "commands": {
+                    "parent": "/cargo",
+                    "children": {},
+                    "index_path": "/cargo/commands/index.html"
+                },
+                "getting-started": {
+                    "parent": "/cargo",
+                    "children": {},
+                    "index_path": "/cargo/getting-started/index.html"
+                },
+                "guide": {
+                    "parent": "/cargo",
+                    "children": {},
+                    "index_path": "/cargo/guide/index.html"
+                },
+                "reference": {
+                    "parent": "/cargo",
+                    "children": {},
+                    "index_path": "/cargo/reference/index.html"
+                }
+            },
+            "index_path": "/cargo/index.html"
+        },
+        "clippy": {
+            "parent": "",
+            "children": {
+                "development": {
+                    "parent": "/clippy",
+                    "children": {
+                        "infrastructure": {
+                            "parent": "/clippy/development",
+                            "children": {},
+                            "index_path": "/clippy/development/infrastructure/index.html"
+                        },
+                        "proposals": {
+                            "parent": "/clippy/development",
+                            "children": {},
+                            "index_path": "/clippy/development/proposals/index.html"
+                        }
+                    },
+                    "index_path": "/clippy/development/index.html"
+                },
+                "continuous_integration": {
+                    "parent": "/clippy",
+                    "children": {},
+                    "index_path": "/clippy/continuous_integration/index.html"
+                }
+            },
+            "index_path": "/clippy/index.html"
+        },
+        "core": {
+            "parent": "",
+            "children": {
+                "alloc": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/alloc/index.html"
+                },
+                "any": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/any/index.html"
+                },
+                "arch": {
+                    "parent": "/core",
+                    "children": {
+                        "aarch64": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/aarch64/index.html"
+                        },
+                        "arm": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/arm/index.html"
+                        },
+                        "powerpc": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/powerpc/index.html"
+                        },
+                        "riscv64": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/riscv64/index.html"
+                        },
+                        "s390x": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/s390x/index.html"
+                        },
+                        "wasm": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/wasm/index.html"
+                        },
+                        "wasm32": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/wasm32/index.html"
+                        },
+                        "wasm64": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/wasm64/index.html"
+                        },
+                        "x86": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/x86/index.html"
+                        },
+                        "x86_64": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/x86_64/index.html"
+                        },
+                        "loongarch64": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/loongarch64/index.html"
+                        },
+                        "nvptx": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/nvptx/index.html"
+                        },
+                        "mips": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/mips/index.html"
+                        },
+                        "mips64": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/mips64/index.html"
+                        },
+                        "powerpc64": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/powerpc64/index.html"
+                        },
+                        "riscv32": {
+                            "parent": "/core/arch",
+                            "children": {},
+                            "index_path": "/core/arch/riscv32/index.html"
+                        }
+                    },
+                    "index_path": "/core/arch/index.html"
+                },
+                "array": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/array/index.html"
+                },
+                "ascii": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/ascii/index.html"
+                },
+                "async_iter": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/async_iter/index.html"
+                },
+                "assert_matches": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/assert_matches/index.html"
+                },
+                "autodiff": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/autodiff/index.html"
+                },
+                "borrow": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/borrow/index.html"
+                },
+                "bstr": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/bstr/index.html"
+                },
+                "cell": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/cell/index.html"
+                },
+                "char": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/char/index.html"
+                },
+                "clone": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/clone/index.html"
+                },
+                "cmp": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/cmp/index.html"
+                },
+                "contracts": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/contracts/index.html"
+                },
+                "core_arch": {
+                    "parent": "/core",
+                    "children": {
+                        "arch": {
+                            "parent": "/core/core_arch",
+                            "children": {
+                                "aarch64": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/aarch64/index.html"
+                                },
+                                "mips64": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/mips64/index.html"
+                                },
+                                "nvptx": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/nvptx/index.html"
+                                },
+                                "powerpc": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/powerpc/index.html"
+                                },
+                                "powerpc64": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/powerpc64/index.html"
+                                },
+                                "wasm": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/wasm/index.html"
+                                },
+                                "wasm32": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/wasm32/index.html"
+                                },
+                                "wasm64": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/wasm64/index.html"
+                                },
+                                "x86": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/x86/index.html"
+                                },
+                                "x86_64": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/x86_64/index.html"
+                                },
+                                "loongarch64": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/loongarch64/index.html"
+                                },
+                                "arm": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/arm/index.html"
+                                },
+                                "mips": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/mips/index.html"
+                                },
+                                "riscv32": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/riscv32/index.html"
+                                },
+                                "riscv64": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/riscv64/index.html"
+                                },
+                                "s390x": {
+                                    "parent": "/core/core_arch/arch",
+                                    "children": {},
+                                    "index_path": "/core/core_arch/arch/s390x/index.html"
+                                }
+                            }
+                        }
+                    }
+                },
+                "convert": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/convert/index.html"
+                },
+                "core_simd": {
+                    "parent": "/core",
+                    "children": {
+                        "simd": {
+                            "parent": "/core/core_simd",
+                            "children": {
+                                "cmp": {
+                                    "parent": "/core/core_simd/simd",
+                                    "children": {},
+                                    "index_path": "/core/core_simd/simd/cmp/index.html"
+                                },
+                                "num": {
+                                    "parent": "/core/core_simd/simd",
+                                    "children": {},
+                                    "index_path": "/core/core_simd/simd/num/index.html"
+                                },
+                                "prelude": {
+                                    "parent": "/core/core_simd/simd",
+                                    "children": {},
+                                    "index_path": "/core/core_simd/simd/prelude/index.html"
+                                },
+                                "ptr": {
+                                    "parent": "/core/core_simd/simd",
+                                    "children": {},
+                                    "index_path": "/core/core_simd/simd/ptr/index.html"
+                                }
+                            }
+                        }
+                    }
+                },
+                "default": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/default/index.html"
+                },
+                "error": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/error/index.html"
+                },
+                "f128": {
+                    "parent": "/core",
+                    "children": {
+                        "consts": {
+                            "parent": "/core/f128",
+                            "children": {},
+                            "index_path": "/core/f128/consts/index.html"
+                        }
+                    },
+                    "index_path": "/core/f128/index.html"
+                },
+                "f64": {
+                    "parent": "/core",
+                    "children": {
+                        "consts": {
+                            "parent": "/core/f64",
+                            "children": {},
+                            "index_path": "/core/f64/consts/index.html"
+                        }
+                    },
+                    "index_path": "/core/f64/index.html"
+                },
+                "ffi": {
+                    "parent": "/core",
+                    "children": {
+                        "c_str": {
+                            "parent": "/core/ffi",
+                            "children": {},
+                            "index_path": "/core/ffi/c_str/index.html"
+                        },
+                        "va_list": {
+                            "parent": "/core/ffi",
+                            "children": {},
+                            "index_path": "/core/ffi/va_list/index.html"
+                        }
+                    },
+                    "index_path": "/core/ffi/index.html"
+                },
+                "f16": {
+                    "parent": "/core",
+                    "children": {
+                        "consts": {
+                            "parent": "/core/f16",
+                            "children": {},
+                            "index_path": "/core/f16/consts/index.html"
+                        }
+                    },
+                    "index_path": "/core/f16/index.html"
+                },
+                "fmt": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/fmt/index.html"
+                },
+                "f32": {
+                    "parent": "/core",
+                    "children": {
+                        "consts": {
+                            "parent": "/core/f32",
+                            "children": {},
+                            "index_path": "/core/f32/consts/index.html"
+                        }
+                    },
+                    "index_path": "/core/f32/index.html"
+                },
+                "future": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/future/index.html"
+                },
+                "hint": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/hint/index.html"
+                },
+                "i128": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/i128/index.html"
+                },
+                "i16": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/i16/index.html"
+                },
+                "io": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/io/index.html"
+                },
+                "isize": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/isize/index.html"
+                },
+                "iter": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/iter/index.html"
+                },
+                "hash": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/hash/index.html"
+                },
+                "i8": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/i8/index.html"
+                },
+                "i32": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/i32/index.html"
+                },
+                "i64": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/i64/index.html"
+                },
+                "intrinsics": {
+                    "parent": "/core",
+                    "children": {
+                        "fallback": {
+                            "parent": "/core/intrinsics",
+                            "children": {},
+                            "index_path": "/core/intrinsics/fallback/index.html"
+                        },
+                        "mir": {
+                            "parent": "/core/intrinsics",
+                            "children": {},
+                            "index_path": "/core/intrinsics/mir/index.html"
+                        },
+                        "simd": {
+                            "parent": "/core/intrinsics",
+                            "children": {},
+                            "index_path": "/core/intrinsics/simd/index.html"
+                        }
+                    },
+                    "index_path": "/core/intrinsics/index.html"
+                },
+                "marker": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/marker/index.html"
+                },
+                "mem": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/mem/index.html"
+                },
+                "ops": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/ops/index.html"
+                },
+                "net": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/net/index.html"
+                },
+                "panicking": {
+                    "parent": "/core",
+                    "children": {
+                        "panic_const": {
+                            "parent": "/core/panicking",
+                            "children": {},
+                            "index_path": "/core/panicking/panic_const/index.html"
+                        }
+                    },
+                    "index_path": "/core/panicking/index.html"
+                },
+                "pat": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/pat/index.html"
+                },
+                "num": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/num/index.html"
+                },
+                "primitive": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/primitive/index.html"
+                },
+                "ptr": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/ptr/index.html"
+                },
+                "random": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/random/index.html"
+                },
+                "result": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/result/index.html"
+                },
+                "simd": {
+                    "parent": "/core",
+                    "children": {
+                        "cmp": {
+                            "parent": "/core/simd",
+                            "children": {},
+                            "index_path": "/core/simd/cmp/index.html"
+                        },
+                        "num": {
+                            "parent": "/core/simd",
+                            "children": {},
+                            "index_path": "/core/simd/num/index.html"
+                        },
+                        "prelude": {
+                            "parent": "/core/simd",
+                            "children": {},
+                            "index_path": "/core/simd/prelude/index.html"
+                        },
+                        "ptr": {
+                            "parent": "/core/simd",
+                            "children": {},
+                            "index_path": "/core/simd/ptr/index.html"
+                        }
+                    },
+                    "index_path": "/core/simd/index.html"
+                },
+                "option": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/option/index.html"
+                },
+                "panic": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/panic/index.html"
+                },
+                "slice": {
+                    "parent": "/core",
+                    "children": {
+                        "memchr": {
+                            "parent": "/core/slice",
+                            "children": {},
+                            "index_path": "/core/slice/memchr/index.html"
+                        }
+                    },
+                    "index_path": "/core/slice/index.html"
+                },
+                "pin": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/pin/index.html"
+                },
+                "str": {
+                    "parent": "/core",
+                    "children": {
+                        "pattern": {
+                            "parent": "/core/str",
+                            "children": {},
+                            "index_path": "/core/str/pattern/index.html"
+                        }
+                    },
+                    "index_path": "/core/str/index.html"
+                },
+                "prelude": {
+                    "parent": "/core",
+                    "children": {
+                        "rust_2015": {
+                            "parent": "/core/prelude",
+                            "children": {},
+                            "index_path": "/core/prelude/rust_2015/index.html"
+                        },
+                        "rust_2018": {
+                            "parent": "/core/prelude",
+                            "children": {},
+                            "index_path": "/core/prelude/rust_2018/index.html"
+                        },
+                        "rust_2021": {
+                            "parent": "/core/prelude",
+                            "children": {},
+                            "index_path": "/core/prelude/rust_2021/index.html"
+                        },
+                        "v1": {
+                            "parent": "/core/prelude",
+                            "children": {},
+                            "index_path": "/core/prelude/v1/index.html"
+                        },
+                        "rust_2024": {
+                            "parent": "/core/prelude",
+                            "children": {},
+                            "index_path": "/core/prelude/rust_2024/index.html"
+                        }
+                    },
+                    "index_path": "/core/prelude/index.html"
+                },
+                "range": {
+                    "parent": "/core",
+                    "children": {
+                        "legacy": {
+                            "parent": "/core/range",
+                            "children": {},
+                            "index_path": "/core/range/legacy/index.html"
+                        }
+                    },
+                    "index_path": "/core/range/index.html"
+                },
+                "sync": {
+                    "parent": "/core",
+                    "children": {
+                        "atomic": {
+                            "parent": "/core/sync",
+                            "children": {},
+                            "index_path": "/core/sync/atomic/index.html"
+                        }
+                    },
+                    "index_path": "/core/sync/index.html"
+                },
+                "task": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/task/index.html"
+                },
+                "time": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/time/index.html"
+                },
+                "u128": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/u128/index.html"
+                },
+                "u16": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/u16/index.html"
+                },
+                "u32": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/u32/index.html"
+                },
+                "u8": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/u8/index.html"
+                },
+                "ub_checks": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/ub_checks/index.html"
+                },
+                "unicode": {
+                    "parent": "/core",
+                    "children": {
+                        "conversions": {
+                            "parent": "/core/unicode",
+                            "children": {},
+                            "index_path": "/core/unicode/conversions/index.html"
+                        },
+                        "unicode_data": {
+                            "parent": "/core/unicode",
+                            "children": {
+                                "conversions": {
+                                    "parent": "/core/unicode/unicode_data",
+                                    "children": {},
+                                    "index_path": "/core/unicode/unicode_data/conversions/index.html"
+                                }
+                            }
+                        }
+                    },
+                    "index_path": "/core/unicode/index.html"
+                },
+                "u64": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/u64/index.html"
+                },
+                "usize": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/usize/index.html"
+                },
+                "unsafe_binder": {
+                    "parent": "/core",
+                    "children": {},
+                    "index_path": "/core/unsafe_binder/index.html"
+                }
+            },
+            "index_path": "/core/index.html"
+        },
+        "edition-guide": {
+            "parent": "",
+            "children": {
+                "editions": {
+                    "parent": "/edition-guide",
+                    "children": {},
+                    "index_path": "/edition-guide/editions/index.html"
+                },
+                "rust-2021": {
+                    "parent": "/edition-guide",
+                    "children": {},
+                    "index_path": "/edition-guide/rust-2021/index.html"
+                },
+                "rust-2024": {
+                    "parent": "/edition-guide",
+                    "children": {},
+                    "index_path": "/edition-guide/rust-2024/index.html"
+                },
+                "rust-2015": {
+                    "parent": "/edition-guide",
+                    "children": {},
+                    "index_path": "/edition-guide/rust-2015/index.html"
+                },
+                "rust-2018": {
+                    "parent": "/edition-guide",
+                    "children": {
+                        "cargo-and-crates-io": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/cargo-and-crates-io/index.html"
+                        },
+                        "control-flow": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/control-flow/index.html"
+                        },
+                        "documentation": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/documentation/index.html"
+                        },
+                        "data-types": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/data-types/index.html"
+                        },
+                        "macros": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/macros/index.html"
+                        },
+                        "module-system": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/module-system/index.html"
+                        },
+                        "platform-and-target-support": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/platform-and-target-support/index.html"
+                        },
+                        "the-compiler": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/the-compiler/index.html"
+                        },
+                        "rustdoc": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/rustdoc/index.html"
+                        },
+                        "trait-system": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/trait-system/index.html"
+                        },
+                        "error-handling-and-panics": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/error-handling-and-panics/index.html"
+                        },
+                        "ownership-and-lifetimes": {
+                            "parent": "/edition-guide/rust-2018",
+                            "children": {},
+                            "index_path": "/edition-guide/rust-2018/ownership-and-lifetimes/index.html"
+                        }
+                    },
+                    "index_path": "/edition-guide/rust-2018/index.html"
+                },
+                "rust-next": {
+                    "parent": "/edition-guide",
+                    "children": {},
+                    "index_path": "/edition-guide/rust-next/index.html"
+                }
+            },
+            "index_path": "/edition-guide/index.html"
+        },
+        "embedded-book": {
+            "parent": "",
+            "children": {
+                "c-tips": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/c-tips/index.html"
+                },
+                "design-patterns": {
+                    "parent": "/embedded-book",
+                    "children": {
+                        "hal": {
+                            "parent": "/embedded-book/design-patterns",
+                            "children": {},
+                            "index_path": "/embedded-book/design-patterns/hal/index.html"
+                        }
+                    },
+                    "index_path": "/embedded-book/design-patterns/index.html"
+                },
+                "interoperability": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/interoperability/index.html"
+                },
+                "intro": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/intro/index.html"
+                },
+                "peripherals": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/peripherals/index.html"
+                },
+                "collections": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/collections/index.html"
+                },
+                "concurrency": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/concurrency/index.html"
+                },
+                "portability": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/portability/index.html"
+                },
+                "start": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/start/index.html"
+                },
+                "static-guarantees": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/static-guarantees/index.html"
+                },
+                "unsorted": {
+                    "parent": "/embedded-book",
+                    "children": {},
+                    "index_path": "/embedded-book/unsorted/index.html"
+                }
+            },
+            "index_path": "/embedded-book/index.html"
+        },
+        "error_codes": {
+            "parent": "",
+            "children": {},
+            "index_path": "/error_codes/index.html"
+        },
+        "nomicon": {
+            "parent": "",
+            "children": {},
+            "index_path": "/nomicon/index.html"
+        },
+        "proc_macro": {
+            "parent": "",
+            "children": {
+                "token_stream": {
+                    "parent": "/proc_macro",
+                    "children": {},
+                    "index_path": "/proc_macro/token_stream/index.html"
+                },
+                "tracked_env": {
+                    "parent": "/proc_macro",
+                    "children": {},
+                    "index_path": "/proc_macro/tracked_env/index.html"
+                },
+                "tracked_path": {
+                    "parent": "/proc_macro",
+                    "children": {},
+                    "index_path": "/proc_macro/tracked_path/index.html"
+                }
+            },
+            "index_path": "/proc_macro/index.html"
+        },
+        "reference": {
+            "parent": "",
+            "children": {},
+            "index_path": "/reference/index.html"
+        },
+        "rust-by-example": {
+            "parent": "",
+            "children": {
+                "ja": {
+                    "parent": "/rust-by-example",
+                    "children": {},
+                    "index_path": "/rust-by-example/ja/index.html"
+                },
+                "zh": {
+                    "parent": "/rust-by-example",
+                    "children": {},
+                    "index_path": "/rust-by-example/zh/index.html"
+                }
+            },
+            "index_path": "/rust-by-example/index.html"
+        },
+        "rustc": {
+            "parent": "",
+            "children": {
+                "lints": {
+                    "parent": "/rustc",
+                    "children": {
+                        "listing": {
+                            "parent": "/rustc/lints",
+                            "children": {},
+                            "index_path": "/rustc/lints/listing/index.html"
+                        }
+                    },
+                    "index_path": "/rustc/lints/index.html"
+                },
+                "codegen-options": {
+                    "parent": "/rustc",
+                    "children": {},
+                    "index_path": "/rustc/codegen-options/index.html"
+                },
+                "targets": {
+                    "parent": "/rustc",
+                    "children": {},
+                    "index_path": "/rustc/targets/index.html"
+                },
+                "symbol-mangling": {
+                    "parent": "/rustc",
+                    "children": {},
+                    "index_path": "/rustc/symbol-mangling/index.html"
+                },
+                "tests": {
+                    "parent": "/rustc",
+                    "children": {},
+                    "index_path": "/rustc/tests/index.html"
+                }
+            },
+            "index_path": "/rustc/index.html"
+        },
+        "rustdoc": {
+            "parent": "",
+            "children": {},
+            "index_path": "/rustdoc/index.html"
+        },
+        "std": {
+            "parent": "",
+            "children": {
+                "alloc": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/alloc/index.html"
+                },
+                "any": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/any/index.html"
+                },
+                "arch": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/arch/index.html"
+                },
+                "autodiff": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/autodiff/index.html"
+                },
+                "backtrace": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/backtrace/index.html"
+                },
+                "borrow": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/borrow/index.html"
+                },
+                "char": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/char/index.html"
+                },
+                "clone": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/clone/index.html"
+                },
+                "cmp": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/cmp/index.html"
+                },
+                "array": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/array/index.html"
+                },
+                "collections": {
+                    "parent": "/std",
+                    "children": {
+                        "binary_heap": {
+                            "parent": "/std/collections",
+                            "children": {},
+                            "index_path": "/std/collections/binary_heap/index.html"
+                        },
+                        "btree_map": {
+                            "parent": "/std/collections",
+                            "children": {},
+                            "index_path": "/std/collections/btree_map/index.html"
+                        },
+                        "btree_set": {
+                            "parent": "/std/collections",
+                            "children": {},
+                            "index_path": "/std/collections/btree_set/index.html"
+                        },
+                        "hash_map": {
+                            "parent": "/std/collections",
+                            "children": {},
+                            "index_path": "/std/collections/hash_map/index.html"
+                        },
+                        "hash_set": {
+                            "parent": "/std/collections",
+                            "children": {},
+                            "index_path": "/std/collections/hash_set/index.html"
+                        },
+                        "linked_list": {
+                            "parent": "/std/collections",
+                            "children": {},
+                            "index_path": "/std/collections/linked_list/index.html"
+                        },
+                        "vec_deque": {
+                            "parent": "/std/collections",
+                            "children": {},
+                            "index_path": "/std/collections/vec_deque/index.html"
+                        }
+                    },
+                    "index_path": "/std/collections/index.html"
+                },
+                "convert": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/convert/index.html"
+                },
+                "default": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/default/index.html"
+                },
+                "env": {
+                    "parent": "/std",
+                    "children": {
+                        "consts": {
+                            "parent": "/std/env",
+                            "children": {},
+                            "index_path": "/std/env/consts/index.html"
+                        }
+                    },
+                    "index_path": "/std/env/index.html"
+                },
+                "error": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/error/index.html"
+                },
+                "f128": {
+                    "parent": "/std",
+                    "children": {
+                        "consts": {
+                            "parent": "/std/f128",
+                            "children": {},
+                            "index_path": "/std/f128/consts/index.html"
+                        }
+                    },
+                    "index_path": "/std/f128/index.html"
+                },
+                "f16": {
+                    "parent": "/std",
+                    "children": {
+                        "consts": {
+                            "parent": "/std/f16",
+                            "children": {},
+                            "index_path": "/std/f16/consts/index.html"
+                        }
+                    },
+                    "index_path": "/std/f16/index.html"
+                },
+                "ascii": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/ascii/index.html"
+                },
+                "assert_matches": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/assert_matches/index.html"
+                },
+                "async_iter": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/async_iter/index.html"
+                },
+                "f32": {
+                    "parent": "/std",
+                    "children": {
+                        "consts": {
+                            "parent": "/std/f32",
+                            "children": {},
+                            "index_path": "/std/f32/consts/index.html"
+                        }
+                    },
+                    "index_path": "/std/f32/index.html"
+                },
+                "f64": {
+                    "parent": "/std",
+                    "children": {
+                        "consts": {
+                            "parent": "/std/f64",
+                            "children": {},
+                            "index_path": "/std/f64/consts/index.html"
+                        }
+                    },
+                    "index_path": "/std/f64/index.html"
+                },
+                "ffi": {
+                    "parent": "/std",
+                    "children": {
+                        "c_str": {
+                            "parent": "/std/ffi",
+                            "children": {},
+                            "index_path": "/std/ffi/c_str/index.html"
+                        },
+                        "os_str": {
+                            "parent": "/std/ffi",
+                            "children": {},
+                            "index_path": "/std/ffi/os_str/index.html"
+                        }
+                    },
+                    "index_path": "/std/ffi/index.html"
+                },
+                "fmt": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/fmt/index.html"
+                },
+                "hash": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/hash/index.html"
+                },
+                "hint": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/hint/index.html"
+                },
+                "i128": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/i128/index.html"
+                },
+                "i16": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/i16/index.html"
+                },
+                "i32": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/i32/index.html"
+                },
+                "i8": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/i8/index.html"
+                },
+                "intrinsics": {
+                    "parent": "/std",
+                    "children": {
+                        "fallback": {
+                            "parent": "/std/intrinsics",
+                            "children": {},
+                            "index_path": "/std/intrinsics/fallback/index.html"
+                        },
+                        "mir": {
+                            "parent": "/std/intrinsics",
+                            "children": {},
+                            "index_path": "/std/intrinsics/mir/index.html"
+                        },
+                        "simd": {
+                            "parent": "/std/intrinsics",
+                            "children": {},
+                            "index_path": "/std/intrinsics/simd/index.html"
+                        }
+                    },
+                    "index_path": "/std/intrinsics/index.html"
+                },
+                "io": {
+                    "parent": "/std",
+                    "children": {
+                        "prelude": {
+                            "parent": "/std/io",
+                            "children": {},
+                            "index_path": "/std/io/prelude/index.html"
+                        }
+                    },
+                    "index_path": "/std/io/index.html"
+                },
+                "isize": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/isize/index.html"
+                },
+                "iter": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/iter/index.html"
+                },
+                "marker": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/marker/index.html"
+                },
+                "mem": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/mem/index.html"
+                },
+                "boxed": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/boxed/index.html"
+                },
+                "bstr": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/bstr/index.html"
+                },
+                "cell": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/cell/index.html"
+                },
+                "fs": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/fs/index.html"
+                },
+                "future": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/future/index.html"
+                },
+                "i64": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/i64/index.html"
+                },
+                "net": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/net/index.html"
+                },
+                "option": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/option/index.html"
+                },
+                "num": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/num/index.html"
+                },
+                "ops": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/ops/index.html"
+                },
+                "os": {
+                    "parent": "/std",
+                    "children": {
+                        "darwin": {
+                            "parent": "/std/os",
+                            "children": {
+                                "fs": {
+                                    "parent": "/std/os/darwin",
+                                    "children": {},
+                                    "index_path": "/std/os/darwin/fs/index.html"
+                                }
+                            },
+                            "index_path": "/std/os/darwin/index.html"
+                        },
+                        "fd": {
+                            "parent": "/std/os",
+                            "children": {},
+                            "index_path": "/std/os/fd/index.html"
+                        },
+                        "unix": {
+                            "parent": "/std/os",
+                            "children": {
+                                "ffi": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/ffi/index.html"
+                                },
+                                "io": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/io/index.html"
+                                },
+                                "net": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/net/index.html"
+                                },
+                                "prelude": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/prelude/index.html"
+                                },
+                                "process": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/process/index.html"
+                                },
+                                "fs": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/fs/index.html"
+                                },
+                                "raw": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/raw/index.html"
+                                },
+                                "thread": {
+                                    "parent": "/std/os/unix",
+                                    "children": {},
+                                    "index_path": "/std/os/unix/thread/index.html"
+                                }
+                            },
+                            "index_path": "/std/os/unix/index.html"
+                        },
+                        "linux": {
+                            "parent": "/std/os",
+                            "children": {
+                                "fs": {
+                                    "parent": "/std/os/linux",
+                                    "children": {},
+                                    "index_path": "/std/os/linux/fs/index.html"
+                                },
+                                "net": {
+                                    "parent": "/std/os/linux",
+                                    "children": {},
+                                    "index_path": "/std/os/linux/net/index.html"
+                                },
+                                "process": {
+                                    "parent": "/std/os/linux",
+                                    "children": {},
+                                    "index_path": "/std/os/linux/process/index.html"
+                                },
+                                "raw": {
+                                    "parent": "/std/os/linux",
+                                    "children": {},
+                                    "index_path": "/std/os/linux/raw/index.html"
+                                }
+                            },
+                            "index_path": "/std/os/linux/index.html"
+                        },
+                        "raw": {
+                            "parent": "/std/os",
+                            "children": {},
+                            "index_path": "/std/os/raw/index.html"
+                        },
+                        "wasi": {
+                            "parent": "/std/os",
+                            "children": {
+                                "ffi": {
+                                    "parent": "/std/os/wasi",
+                                    "children": {},
+                                    "index_path": "/std/os/wasi/ffi/index.html"
+                                },
+                                "fs": {
+                                    "parent": "/std/os/wasi",
+                                    "children": {},
+                                    "index_path": "/std/os/wasi/fs/index.html"
+                                },
+                                "prelude": {
+                                    "parent": "/std/os/wasi",
+                                    "children": {},
+                                    "index_path": "/std/os/wasi/prelude/index.html"
+                                },
+                                "io": {
+                                    "parent": "/std/os/wasi",
+                                    "children": {},
+                                    "index_path": "/std/os/wasi/io/index.html"
+                                }
+                            },
+                            "index_path": "/std/os/wasi/index.html"
+                        },
+                        "wasip2": {
+                            "parent": "/std/os",
+                            "children": {},
+                            "index_path": "/std/os/wasip2/index.html"
+                        },
+                        "windows": {
+                            "parent": "/std/os",
+                            "children": {
+                                "ffi": {
+                                    "parent": "/std/os/windows",
+                                    "children": {},
+                                    "index_path": "/std/os/windows/ffi/index.html"
+                                },
+                                "fs": {
+                                    "parent": "/std/os/windows",
+                                    "children": {},
+                                    "index_path": "/std/os/windows/fs/index.html"
+                                },
+                                "io": {
+                                    "parent": "/std/os/windows",
+                                    "children": {},
+                                    "index_path": "/std/os/windows/io/index.html"
+                                },
+                                "prelude": {
+                                    "parent": "/std/os/windows",
+                                    "children": {},
+                                    "index_path": "/std/os/windows/prelude/index.html"
+                                },
+                                "raw": {
+                                    "parent": "/std/os/windows",
+                                    "children": {},
+                                    "index_path": "/std/os/windows/raw/index.html"
+                                },
+                                "thread": {
+                                    "parent": "/std/os/windows",
+                                    "children": {},
+                                    "index_path": "/std/os/windows/thread/index.html"
+                                },
+                                "process": {
+                                    "parent": "/std/os/windows",
+                                    "children": {},
+                                    "index_path": "/std/os/windows/process/index.html"
+                                }
+                            },
+                            "index_path": "/std/os/windows/index.html"
+                        }
+                    },
+                    "index_path": "/std/os/index.html"
+                },
+                "panic": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/panic/index.html"
+                },
+                "pat": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/pat/index.html"
+                },
+                "prelude": {
+                    "parent": "/std",
+                    "children": {
+                        "rust_2018": {
+                            "parent": "/std/prelude",
+                            "children": {},
+                            "index_path": "/std/prelude/rust_2018/index.html"
+                        },
+                        "rust_2021": {
+                            "parent": "/std/prelude",
+                            "children": {},
+                            "index_path": "/std/prelude/rust_2021/index.html"
+                        },
+                        "rust_2024": {
+                            "parent": "/std/prelude",
+                            "children": {},
+                            "index_path": "/std/prelude/rust_2024/index.html"
+                        },
+                        "v1": {
+                            "parent": "/std/prelude",
+                            "children": {},
+                            "index_path": "/std/prelude/v1/index.html"
+                        },
+                        "rust_2015": {
+                            "parent": "/std/prelude",
+                            "children": {},
+                            "index_path": "/std/prelude/rust_2015/index.html"
+                        }
+                    },
+                    "index_path": "/std/prelude/index.html"
+                },
+                "primitive": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/primitive/index.html"
+                },
+                "process": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/process/index.html"
+                },
+                "ptr": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/ptr/index.html"
+                },
+                "random": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/random/index.html"
+                },
+                "range": {
+                    "parent": "/std",
+                    "children": {
+                        "legacy": {
+                            "parent": "/std/range",
+                            "children": {},
+                            "index_path": "/std/range/legacy/index.html"
+                        }
+                    },
+                    "index_path": "/std/range/index.html"
+                },
+                "rc": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/rc/index.html"
+                },
+                "result": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/result/index.html"
+                },
+                "simd": {
+                    "parent": "/std",
+                    "children": {
+                        "cmp": {
+                            "parent": "/std/simd",
+                            "children": {},
+                            "index_path": "/std/simd/cmp/index.html"
+                        },
+                        "num": {
+                            "parent": "/std/simd",
+                            "children": {},
+                            "index_path": "/std/simd/num/index.html"
+                        },
+                        "prelude": {
+                            "parent": "/std/simd",
+                            "children": {},
+                            "index_path": "/std/simd/prelude/index.html"
+                        },
+                        "ptr": {
+                            "parent": "/std/simd",
+                            "children": {},
+                            "index_path": "/std/simd/ptr/index.html"
+                        }
+                    },
+                    "index_path": "/std/simd/index.html"
+                },
+                "slice": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/slice/index.html"
+                },
+                "path": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/path/index.html"
+                },
+                "task": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/task/index.html"
+                },
+                "thread": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/thread/index.html"
+                },
+                "time": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/time/index.html"
+                },
+                "u128": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/u128/index.html"
+                },
+                "u16": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/u16/index.html"
+                },
+                "u32": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/u32/index.html"
+                },
+                "u64": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/u64/index.html"
+                },
+                "u8": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/u8/index.html"
+                },
+                "unsafe_binder": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/unsafe_binder/index.html"
+                },
+                "pin": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/pin/index.html"
+                },
+                "usize": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/usize/index.html"
+                },
+                "vec": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/vec/index.html"
+                },
+                "str": {
+                    "parent": "/std",
+                    "children": {
+                        "pattern": {
+                            "parent": "/std/str",
+                            "children": {},
+                            "index_path": "/std/str/pattern/index.html"
+                        }
+                    },
+                    "index_path": "/std/str/index.html"
+                },
+                "string": {
+                    "parent": "/std",
+                    "children": {},
+                    "index_path": "/std/string/index.html"
+                },
+                "sync": {
+                    "parent": "/std",
+                    "children": {
+                        "atomic": {
+                            "parent": "/std/sync",
+                            "children": {},
+                            "index_path": "/std/sync/atomic/index.html"
+                        },
+                        "mpmc": {
+                            "parent": "/std/sync",
+                            "children": {},
+                            "index_path": "/std/sync/mpmc/index.html"
+                        },
+                        "mpsc": {
+                            "parent": "/std/sync",
+                            "children": {},
+                            "index_path": "/std/sync/mpsc/index.html"
+                        },
+                        "poison": {
+                            "parent": "/std/sync",
+                            "children": {},
+                            "index_path": "/std/sync/poison/index.html"
+                        }
+                    },
+                    "index_path": "/std/sync/index.html"
+                }
+            },
+            "index_path": "/std/index.html"
+        },
+        "style-guide": {
+            "parent": "",
+            "children": {},
+            "index_path": "/style-guide/index.html"
+        },
+        "test": {
+            "parent": "",
+            "children": {
+                "bench": {
+                    "parent": "/test",
+                    "children": {},
+                    "index_path": "/test/bench/index.html"
+                },
+                "stats": {
+                    "parent": "/test",
+                    "children": {},
+                    "index_path": "/test/stats/index.html"
+                },
+                "test": {
+                    "parent": "/test",
+                    "children": {},
+                    "index_path": "/test/test/index.html"
+                }
+            },
+            "index_path": "/test/index.html"
+        },
+        "unstable-book": {
+            "parent": "",
+            "children": {},
+            "index_path": "/unstable-book/index.html"
+        }
+    },
+    "index_path": "/index.html"
+}
