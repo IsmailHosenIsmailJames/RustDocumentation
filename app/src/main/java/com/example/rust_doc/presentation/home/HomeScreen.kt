@@ -7,8 +7,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -36,6 +39,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AddHome
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -48,6 +52,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -78,7 +84,8 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(homeViewModel: HomeScreenViewModel = koinViewModel()) {
   val homeState by homeViewModel.state.collectAsState()
   val focusManager = LocalFocusManager.current
-
+  val isDarkTheme = isSystemInDarkTheme()
+  val colorScheme = if (isDarkTheme) darkColorScheme() else lightColorScheme()
   Scaffold(
     modifier = Modifier.clickable(
       interactionSource = remember { MutableInteractionSource() }, indication = null
@@ -87,12 +94,38 @@ fun HomeScreen(homeViewModel: HomeScreenViewModel = koinViewModel()) {
     }, topBar = {
       HomeTopBar(homeViewModel, homeState)
     }) { paddingValues ->
-    RustDocumentationScreen(
-      homeViewModel,
-      homeState,
-      homeViewModel.webViewClient,
-      Modifier.padding(paddingValues),
-    )
+    Box(modifier = Modifier.padding(paddingValues)) {
+      RustDocumentationScreen(
+        homeViewModel,
+        homeState,
+        homeViewModel.webViewClient,
+      )
+      AnimatedVisibility(visible = homeState.isSearchTyping) {
+        Box(
+          modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+            .background(
+              color = colorScheme.surface,
+              shape = RoundedCornerShape(10.dp)
+            )
+            .padding(10.dp)
+        ) {
+          LazyColumn {
+            items(homeState.searchResult.size) {
+              Text(
+                homeState.searchResult[it], modifier = Modifier
+                  .padding(10.dp)
+                  .clickable {
+                    homeViewModel.onAction(HomeScreenAction.ChangeCurrentDoc(homeState.searchResult[it]))
+                    focusManager.clearFocus()
+                  }
+              )
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -106,11 +139,18 @@ fun HomeTopBar(
   val isFavorite = homeState.allFavoritePath.contains(homeState.currentDocPath)
   val context = LocalContext.current;
   TopAppBar(title = {
-     OutlinedTextField(
+    OutlinedTextField(
       modifier = Modifier
         .padding(end = if (homeState.isSearchTyping) 15.dp else 0.dp)
         .fillMaxWidth()
         .onFocusChanged {
+          if (it.isFocused) {
+            homeViewModel.onAction(
+              HomeScreenAction.Search(
+                homeState.searchQuery.split("android_asset/").last()
+              )
+            )
+          }
           homeViewModel.onAction(HomeScreenAction.IsSearchTyping(it.isFocused))
         },
       value = homeState.searchQuery.split("android_asset/").last(),
@@ -125,7 +165,7 @@ fun HomeTopBar(
       placeholder = {
         Text("Search")
       },
-       textStyle = TextStyle(fontSize = 14.sp),
+      textStyle = TextStyle(fontSize = 14.sp),
       shape = RoundedCornerShape(100),
       singleLine = true,
     )
@@ -245,7 +285,7 @@ fun RustDocumentationScreen(
   homeViewModel: HomeScreenViewModel,
   homeState: HomeScreenState,
   webClient: WebViewClient,
-  modifier: Modifier
+  modifier: Modifier = Modifier
 
 ) {
   // The path to your main documentation file within the assets folder

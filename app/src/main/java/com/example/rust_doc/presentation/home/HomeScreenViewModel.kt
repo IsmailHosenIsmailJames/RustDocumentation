@@ -82,6 +82,7 @@ class HomeScreenViewModel(private val dataStore: DataStore<Preferences>) : ViewM
               dataBase[PreferencesKeys.HISTORY_OF_VISITED_PATH] = history.toSet()
             }
           }
+          _webView?.loadUrl(action.path)
           _state.value = _state.value.copy(
             currentDocPath = it,
             searchQuery = it,
