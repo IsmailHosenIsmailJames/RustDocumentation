@@ -123,10 +123,11 @@ fun HomeScreen(
           LazyColumn {
             items(homeState.searchResult.size) {
               Text(
-                homeState.searchResult[it], modifier = Modifier
+                homeState.searchResult[it].split("book/").last(), modifier = Modifier
                   .padding(10.dp)
                   .clickable {
                     homeViewModel.onAction(HomeScreenAction.ChangeCurrentDoc(homeState.searchResult[it]))
+                    println(homeState.searchResult[it])
                     focusManager.clearFocus()
                   }
               )
@@ -163,7 +164,9 @@ fun HomeTopBar(
           }
           homeViewModel.onAction(HomeScreenAction.IsSearchTyping(it.isFocused))
         },
-      value = homeState.searchQuery?.split("android_asset/")?.last() ?: "index.html",
+      value = if (homeState.searchQuery?.startsWith("http") == true) homeState.searchQuery else homeState.searchQuery?.split(
+        "book/"
+      )?.last() ?: "index.html",
       leadingIcon = {
         Icon(
           Icons.Default.Search, contentDescription = "Search"
@@ -228,7 +231,12 @@ fun HomeTopBar(
             )
           )
         }
-
+        // show toast
+        Toast.makeText(
+          context,
+          "Successfully Set as Home",
+          Toast.LENGTH_SHORT
+        ).show();
         homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
       })
       DropdownMenuItem(leadingIcon = {

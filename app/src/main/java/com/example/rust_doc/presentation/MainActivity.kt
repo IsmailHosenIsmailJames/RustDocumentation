@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
       val setupViewModel = koinViewModel<SetupViewModel>()
       val setupModelSate by setupViewModel.state.collectAsState()
       RustDocumentationTheme {
-        if (setupModelSate.isDownloaded == null) {
+        if (setupModelSate.isDownloaded == null && setupModelSate.initPath == null) {
           Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
           }

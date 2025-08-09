@@ -16,7 +16,6 @@ class SetupApp {
   suspend fun downloadFile(
     application: Application,
     fileURL: String,
-    onProgress: (Float) -> Unit = {}
   ): String = withContext(Dispatchers.IO) {
     val url = URL(fileURL)
     val connection = url.openConnection()
@@ -24,8 +23,6 @@ class SetupApp {
 
     val fileName = fileURL.substring(fileURL.lastIndexOf('/') + 1)
     val outputFile = File(application.cacheDir, fileName)
-    val totalBytes = connection.contentLength
-    var bytesCopied = 0L
 
     connection.getInputStream().use { input ->
       FileOutputStream(outputFile).use { output ->
@@ -33,20 +30,15 @@ class SetupApp {
         var bytesRead: Int
         while (input.read(buffer).also { bytesRead = it } != -1) {
           output.write(buffer, 0, bytesRead)
-          bytesCopied += bytesRead
-          val progress = if (totalBytes > 0) (bytesCopied.toFloat() / totalBytes) else 0f
-          onProgress(progress)
         }
       }
     }
-    onProgress(1f)
     return@withContext outputFile.absolutePath
   }
 
   suspend fun extractZip(
     zipPath: String,
     destinationPath: String,
-    onProgress: (Float) -> Unit = {} // Note: Progress is now 0.0 at start, 1.0 at end.
   ): String = withContext(Dispatchers.IO) {
     val destDir = File(destinationPath)
     if (!destDir.exists()) {
@@ -62,7 +54,6 @@ class SetupApp {
       throw FileNotFoundException("ZIP file not found: $zipPath")
     }
 
-    onProgress(0.0f) // Signal start of extraction
 
     var foundEntries = false
     FileInputStream(zipFile).use { fis ->
@@ -108,7 +99,6 @@ class SetupApp {
 
     // If no entries were found in the zip, it's effectively empty or invalid.
     if (!foundEntries) {
-      onProgress(1.0f) // Report completion for an empty zip.
       val emptyZipIndexPath = File(destDir, "book/index.html").absolutePath
       if (File(emptyZipIndexPath).exists()) {
           return@withContext emptyZipIndexPath
@@ -116,7 +106,6 @@ class SetupApp {
       throw FileNotFoundException("book/index.html not found in empty or invalid ZIP at $destinationPath/book/index.html")
     }
     
-    onProgress(1.0f) // Signal end of extraction for non-empty zips
 
     val expectedIndexPath = File(destDir, "book/index.html").absolutePath
     println("SetupApp: Checking for index.html at: $expectedIndexPath")

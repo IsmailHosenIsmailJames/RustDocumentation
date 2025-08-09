@@ -67,10 +67,8 @@ class SetupViewModel(
         viewModelScope.launch {
           try {
             val downloadedPath = SetupApp().downloadFile(
-              application, zipFileURL,
-              onProgress = {
-                _state.value = _state.value.copy(downLoadProgress = it)
-              })
+              application, zipFileURL
+             )
             _state.value = _state.value.copy(
               isDownloading = false,
               downloadedZipPath = downloadedPath,
@@ -83,11 +81,6 @@ class SetupViewModel(
               SetupApp().extractZip(
                 downloadedPath,
                 application.dataDir.path + "/${_state.value.bookLanguage}",
-                onProgress = {
-                  _state.value = _state.value.copy(
-                    downLoadProgress = it
-                  )
-                },
               )
             _state.value = _state.value.copy(
               isExtracting = false,

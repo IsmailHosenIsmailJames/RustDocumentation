@@ -26,12 +26,20 @@ class HomeScreenViewModel(
   val state = _state.asStateFlow()
 
   val webViewClient = object : WebViewClient() {
+    override fun onPageFinished(view: WebView?, url: String?) {
+      super.onPageFinished(view, url)
+      if (url != null) justChangeCurrentDoc(url)
+    }
+
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
       super.shouldOverrideUrlLoading(view, request)
-      if (request?.url?.path != _state.value.currentDocPath) {
-        request?.url?.path?.let { onAction(action = HomeScreenAction.ChangeCurrentDoc(it)) }
+      val requestedUrl = request?.url?.toString()
+      println(requestedUrl)
+      if (requestedUrl != null && requestedUrl != _state.value.currentDocPath) {
+        println("Action = $requestedUrl")
+        onAction(action = HomeScreenAction.ChangeCurrentDoc(requestedUrl))
       }
-      return false // Prevent multiple loads for the same URL
+      return false
     }
   }
 
@@ -47,7 +55,7 @@ class HomeScreenViewModel(
         allFavoritePath = favoritePaths.toList(),
         homePath = homePath,
         currentDocPath = homePath, // Start at home path
-        searchQuery = homePath?.split("book")?.last(),
+        searchQuery = homePath?.split("book/")?.last(),
         historyOfVisitedPath = history.toList()
       )
       // Update isThisFavorite based on initial currentDocPath
@@ -77,7 +85,7 @@ class HomeScreenViewModel(
   fun justChangeCurrentDoc(path: String) {
     _state.value = _state.value.copy(
       currentDocPath = path,
-      searchQuery = path.split("book").last(),
+      searchQuery = if (path.startsWith("http")) path else path.split("book/").last(),
       isThisFavorite = _state.value.allFavoritePath.contains(path)
     )
   }
@@ -96,10 +104,11 @@ class HomeScreenViewModel(
               dataBase[PreferencesKeys.HISTORY_OF_VISITED_PATH] = history.toSet()
             }
           }
+          println("Action Path ${action.path}")
           _webView?.loadUrl(action.path)
           _state.value = _state.value.copy(
             currentDocPath = it,
-            searchQuery = it.split("book").last(),
+            searchQuery =if (it.startsWith("http")) it else it.split("book/").last(),
             historyOfVisitedPath = history,
             isThisFavorite = _state.value.allFavoritePath.contains(it)
           )
@@ -173,9 +182,9 @@ class HomeScreenViewModel(
         viewModelScope.launch {
           val homePath = dataStore.data.first()[PreferencesKeys.HOME_PATH]
           onAction(HomeScreenAction.ChangeCurrentDoc(homePath)) // This will also update webview
-         if(homePath!=null) {
-           _webView?.loadUrl(homePath)
-         }
+          if (homePath != null) {
+            _webView?.loadUrl(homePath)
+          }
         }
       }
 
