@@ -1,6 +1,6 @@
 package com.example.rust_doc.presentation.home
 
-import android.content.res.AssetManager
+import android.app.Application
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -10,17 +10,17 @@ import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rust_doc.data.local.PreferencesKeys
-import kotlinx.coroutines.Dispatchers
+import com.example.rust_doc.utils.AppUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
+import java.io.File
 
 class HomeScreenViewModel(
   private val dataStore: DataStore<Preferences>,
+  private val application: Application,
 ) : ViewModel() {
   private val _state = MutableStateFlow(HomeScreenState())
   val state = _state.asStateFlow()
@@ -51,12 +51,14 @@ class HomeScreenViewModel(
       val favoritePaths = preferences[PreferencesKeys.FAVORITE_PATHS] ?: emptySet()
       val homePath = preferences[PreferencesKeys.HOME_PATH]
       val history = preferences[PreferencesKeys.HISTORY_OF_VISITED_PATH] ?: emptySet()
+      val language = preferences[PreferencesKeys.BOOK_LANGUAGE] ?: "English"
       _state.value = _state.value.copy(
         allFavoritePath = favoritePaths.toList(),
         homePath = homePath,
         currentDocPath = homePath, // Start at home path
         searchQuery = homePath?.split("book/")?.last(),
-        historyOfVisitedPath = history.toList()
+        historyOfVisitedPath = history.toList(),
+        language = language
       )
       // Update isThisFavorite based on initial currentDocPath
       _state.value = _state.value.copy(isThisFavorite = favoritePaths.contains(homePath))
@@ -83,17 +85,23 @@ class HomeScreenViewModel(
   }
 
   fun justChangeCurrentDoc(path: String) {
-    _state.value = _state.value.copy(
-      currentDocPath = path,
-      searchQuery = if (path.startsWith("http")) path else path.split("book/").last(),
-      isThisFavorite = _state.value.allFavoritePath.contains(path)
-    )
+    if (File(path).exists()) {
+      _state.value = _state.value.copy(
+        currentDocPath = path,
+        homePath = path,
+        searchQuery = if (path.startsWith("http")) path else path.split("book/").last(),
+        isThisFavorite = _state.value.allFavoritePath.contains(path)
+      )
+    } else {
+      return
+    }
   }
 
   fun onAction(action: HomeScreenAction) {
     when (action) {
       is HomeScreenAction.ChangeCurrentDoc -> {
-        action.path?.let {
+        if(!(action.path!=null&&File(action.path).exists())) return
+        action.path.let {
           val history = _state.value.historyOfVisitedPath.toMutableList().take(20)
             .toMutableList() // Limit history size
           if (history.firstOrNull() != it) { // Avoid duplicate entries at the top
@@ -108,7 +116,7 @@ class HomeScreenViewModel(
           _webView?.loadUrl(action.path)
           _state.value = _state.value.copy(
             currentDocPath = it,
-            searchQuery =if (it.startsWith("http")) it else it.split("book/").last(),
+            searchQuery = if (it.startsWith("http")) it else it.split("book/").last(),
             historyOfVisitedPath = history,
             isThisFavorite = _state.value.allFavoritePath.contains(it)
           )
@@ -118,7 +126,7 @@ class HomeScreenViewModel(
       is HomeScreenAction.WebViewInstance -> {
         _webView = action.webView
         // Load initial URL after webview is ready
-        _webView?.loadUrl("file://${_state.value.currentDocPath}")
+        _webView?.loadUrl(action.initPath)
       }
 
       is HomeScreenAction.AddFavorite -> {
@@ -201,10 +209,13 @@ class HomeScreenViewModel(
       is HomeScreenAction.ResetApp -> {
         viewModelScope.launch {
           dataStore.edit {
-            it[PreferencesKeys.FAVORITE_PATHS] = emptySet()
-            it[PreferencesKeys.HOME_PATH] = "file:///android_asset/index.html"
-            it[PreferencesKeys.HISTORY_OF_VISITED_PATH] = emptySet()
+            it.clear()
           }
+          // also delete all files in the data folder. For Example : file:///data/user/0/com.example.rust_doc/English/
+          if (_state.value.language != null) {
+            AppUtils().deleteFolder(_state.value.language!!, application = application)
+          }
+
         }
       }
     }

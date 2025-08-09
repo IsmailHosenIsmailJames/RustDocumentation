@@ -5,21 +5,13 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import com.example.rust_doc.HomeScreenNav
 import com.example.rust_doc.data.local.PreferencesKeys
 import com.example.rust_doc.data.remote.SetupApp
-import com.example.rust_doc.presentation.home.HomeScreenViewModel
 import com.example.rust_doc.presentation.setup.models.Books
-import kotlinx.coroutines.Dispatchers
+import com.example.rust_doc.utils.AppUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.koin.androidx.compose.koinViewModel
-import java.io.File
-import java.io.FileOutputStream
-import java.net.URL
 
 class SetupViewModel(
   private val application: Application, // Added Application context
@@ -68,7 +60,7 @@ class SetupViewModel(
           try {
             val downloadedPath = SetupApp().downloadFile(
               application, zipFileURL
-             )
+            )
             _state.value = _state.value.copy(
               isDownloading = false,
               downloadedZipPath = downloadedPath,
@@ -78,7 +70,7 @@ class SetupViewModel(
             )
             println("Downloaded Successful :$downloadedPath ")
             val indexHtmlPath: String =
-              SetupApp().extractZip(
+              AppUtils().extractZip(
                 downloadedPath,
                 application.dataDir.path + "/${_state.value.bookLanguage}",
               )
@@ -86,8 +78,6 @@ class SetupViewModel(
               isExtracting = false,
               initPath = indexHtmlPath
             )
-
-            println("Index HTML Path : $indexHtmlPath")
 
             dataStore.updateData { preferences ->
               preferences.toMutablePreferences()
@@ -111,7 +101,6 @@ class SetupViewModel(
       }
     }
   }
-
 
 }
 

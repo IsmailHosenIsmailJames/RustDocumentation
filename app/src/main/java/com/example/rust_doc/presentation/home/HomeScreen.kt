@@ -1,8 +1,5 @@
 package com.example.rust_doc.presentation.home
 
-import android.content.Intent
-import android.net.Uri
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -11,12 +8,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,19 +21,10 @@ import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AddHome
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.LockReset
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.AddHome
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,37 +34,24 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.example.rust_doc.HomeScreenNav
 import com.example.rust_doc.SelectLanguageOfBookNav
 import org.koin.androidx.compose.koinViewModel
 
@@ -105,7 +77,6 @@ fun HomeScreen(
     Box(modifier = Modifier.padding(paddingValues)) {
       RustDocumentationScreen(
         homeViewModel,
-        homeState,
         webClient = homeViewModel.webViewClient,
         initPath = initPath
       )
@@ -148,7 +119,7 @@ fun HomeTopBar(
   navController: NavController
 ) {
   val isFavorite = homeState.allFavoritePath.contains(homeState.currentDocPath)
-  val context = LocalContext.current;
+  val context = LocalContext.current
   TopAppBar(title = {
     OutlinedTextField(
       modifier = Modifier
@@ -236,7 +207,7 @@ fun HomeTopBar(
           context,
           "Successfully Set as Home",
           Toast.LENGTH_SHORT
-        ).show();
+        ).show()
         homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
       })
       DropdownMenuItem(leadingIcon = {
@@ -268,7 +239,7 @@ fun HomeTopBar(
           context,
           if (isFavorite) "Removed from Favorites" else "Successfully Added to Favorites",
           Toast.LENGTH_SHORT
-        ).show();
+        ).show()
         homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
       })
 
@@ -307,13 +278,10 @@ fun HomeTopBar(
 @Composable
 fun RustDocumentationScreen(
   homeViewModel: HomeScreenViewModel,
-  homeState: HomeScreenState,
   webClient: WebViewClient,
   modifier: Modifier = Modifier,
   initPath: String
 ) {
-  val docPath = homeState.currentDocPath ?: initPath
-
   AndroidView(
     modifier = modifier.fillMaxWidth(), factory = { context ->
       WebView(context).apply {
@@ -321,8 +289,8 @@ fun RustDocumentationScreen(
         settings.javaScriptEnabled = true
         settings.allowFileAccess = true
         settings.domStorageEnabled = true
-        loadUrl(docPath)
-        homeViewModel.onAction(HomeScreenAction.WebViewInstance(this))
+        loadUrl(initPath)
+        homeViewModel.onAction(HomeScreenAction.WebViewInstance(this, initPath))
       }
     })
 }

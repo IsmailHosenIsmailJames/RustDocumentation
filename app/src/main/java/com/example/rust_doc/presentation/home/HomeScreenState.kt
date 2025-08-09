@@ -1,10 +1,9 @@
 package com.example.rust_doc.presentation.home
 
-import org.json.JSONObject
-
 data class HomeScreenState(
   val currentDocPath: String? = null,
   val homePath: String? = null,
+  val language: String?=null,
   val allDocsPath: List<String> = emptyList(),
   val allFavoritePath : List<String> = emptyList(),
   val isThisFavorite: Boolean = false,

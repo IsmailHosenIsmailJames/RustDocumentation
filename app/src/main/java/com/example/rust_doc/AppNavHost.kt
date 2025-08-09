@@ -9,9 +9,7 @@ import androidx.navigation.toRoute
 import com.example.rust_doc.presentation.home.HomeScreen
 import com.example.rust_doc.presentation.setup.DownloadBookFileScreen
 import com.example.rust_doc.presentation.setup.SelectLanguageOfBook
-import com.example.rust_doc.presentation.setup.SetupViewModel
 import kotlinx.serialization.Serializable
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppNavHost(
