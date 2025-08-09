@@ -105,7 +105,8 @@ fun HomeScreen(
       RustDocumentationScreen(
         homeViewModel,
         homeState,
-        homeViewModel.webViewClient,
+        webClient = homeViewModel.webViewClient,
+        initPath = initPath
       )
       AnimatedVisibility(visible = homeState.isSearchTyping) {
         Box(
@@ -154,13 +155,13 @@ fun HomeTopBar(
           if (it.isFocused) {
             homeViewModel.onAction(
               HomeScreenAction.Search(
-                homeState.searchQuery.split("android_asset/").last()
+                homeState.searchQuery?.split("book/")?.last() ?: "index.html"
               )
             )
           }
           homeViewModel.onAction(HomeScreenAction.IsSearchTyping(it.isFocused))
         },
-      value = homeState.searchQuery.split("android_asset/").last(),
+      value = homeState.searchQuery?.split("android_asset/")?.last() ?: "index.html",
       leadingIcon = {
         Icon(
           Icons.Default.Search, contentDescription = "Search"
@@ -226,7 +227,14 @@ fun HomeTopBar(
       }, text = {
         Text("Set as Home")
       }, onClick = {
-        homeViewModel.onAction(HomeScreenAction.SetAsHome(homeState.currentDocPath))
+        if (homeState.currentDocPath != null) {
+          homeViewModel.onAction(
+            HomeScreenAction.SetAsHome(
+              homeState.currentDocPath
+            )
+          )
+        }
+
         homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
       })
       DropdownMenuItem(leadingIcon = {
@@ -246,12 +254,14 @@ fun HomeTopBar(
       }, text = {
         Text(if (isFavorite) "Remove from Favorites" else "Save to Favorites")
       }, onClick = {
-        homeViewModel.onAction(
-          if (isFavorite) HomeScreenAction.RemoveFavorite(homeState.currentDocPath)
-          else HomeScreenAction.AddFavorite(
-            homeState.currentDocPath
+        if (homeState.currentDocPath != null) {
+          homeViewModel.onAction(
+            if (isFavorite) HomeScreenAction.RemoveFavorite(homeState.currentDocPath)
+            else HomeScreenAction.AddFavorite(
+              homeState.currentDocPath
+            )
           )
-        )
+        }
         Toast.makeText(
           context,
           if (isFavorite) "Removed from Favorites" else "Successfully Added to Favorites",
@@ -292,10 +302,9 @@ fun RustDocumentationScreen(
   homeViewModel: HomeScreenViewModel,
   homeState: HomeScreenState,
   webClient: WebViewClient,
-  modifier: Modifier = Modifier
-
+  modifier: Modifier = Modifier,
+  initPath: String
 ) {
-  // The path to your main documentation file within the assets folder
   val docPath = homeState.currentDocPath
 
   AndroidView(
@@ -305,7 +314,7 @@ fun RustDocumentationScreen(
         settings.javaScriptEnabled = true
         settings.allowFileAccess = true
         settings.domStorageEnabled = true
-        loadUrl(docPath)
+        loadUrl(docPath ?: initPath)
         homeViewModel.onAction(HomeScreenAction.WebViewInstance(this))
       }
     })

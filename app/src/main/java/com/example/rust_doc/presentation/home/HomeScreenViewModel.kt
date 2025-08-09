@@ -74,6 +74,14 @@ class HomeScreenViewModel(
     }
   }
 
+  fun justChangeCurrentDoc(path: String) {
+    _state.value = _state.value.copy(
+      currentDocPath = path,
+      searchQuery = path,
+      isThisFavorite = _state.value.allFavoritePath.contains(path)
+    )
+  }
+
   fun onAction(action: HomeScreenAction) {
     when (action) {
       is HomeScreenAction.ChangeCurrentDoc -> {
@@ -163,10 +171,11 @@ class HomeScreenViewModel(
 
       is HomeScreenAction.GoHome -> {
         viewModelScope.launch {
-          val homePath =
-            dataStore.data.first()[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html"
+          val homePath = dataStore.data.first()[PreferencesKeys.HOME_PATH]
           onAction(HomeScreenAction.ChangeCurrentDoc(homePath)) // This will also update webview
-          _webView?.loadUrl(homePath)
+         if(homePath!=null) {
+           _webView?.loadUrl(homePath)
+         }
         }
       }
 

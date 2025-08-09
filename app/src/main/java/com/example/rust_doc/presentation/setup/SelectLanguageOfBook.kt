@@ -36,6 +36,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.rust_doc.DownloadBookFilesNav
+import com.example.rust_doc.HomeScreenNav
+import com.example.rust_doc.presentation.home.HomeScreenAction
+import com.example.rust_doc.presentation.home.HomeScreenViewModel
 import com.example.rust_doc.presentation.setup.models.Books
 import org.koin.androidx.compose.koinViewModel
 
@@ -43,9 +46,12 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SelectLanguageOfBook(
   navController: NavController,
-  setupViewModel: SetupViewModel = koinViewModel()
+  setupViewModel: SetupViewModel = koinViewModel(),
+  homeViewModel: HomeScreenViewModel = koinViewModel()
 ) {
+
   val setupModelSate: SetupModelSate by setupViewModel.state.collectAsState()
+  val homeModelSate by homeViewModel.state.collectAsState()
   val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
   Scaffold(
@@ -66,8 +72,16 @@ fun SelectLanguageOfBook(
     floatingActionButton = {
       FloatingActionButton(onClick = {
         navController.navigate(DownloadBookFilesNav(downloadUrl = setupModelSate.selectedBookUrl))
+        setupViewModel.onAction(
+          SetupAction.DownloadZip(setupModelSate.selectedBookUrl),
+          navigateHome = {
+            homeViewModel.justChangeCurrentDoc(it)
+            println("Navigate Home: $it")
+            navController.navigate(HomeScreenNav(initPath = it))
+          }
+        )
       }) {
-        Row(modifier = Modifier.padding(start = 7.dp, end=7.dp)) {
+        Row(modifier = Modifier.padding(start = 7.dp, end = 7.dp)) {
           Text(text = "Next", fontSize = 16.sp)
           Spacer(modifier = Modifier.width(10.dp))
           Icon(
@@ -111,7 +125,7 @@ fun BookView(
       )
       .clickable(
         onClick = {
-          setupViewModel.onAction(SetupAction.SelectBook(book.link))
+          setupViewModel.onAction(SetupAction.SelectBook(book.link, book.language))
         }
       )
       .padding(10.dp),

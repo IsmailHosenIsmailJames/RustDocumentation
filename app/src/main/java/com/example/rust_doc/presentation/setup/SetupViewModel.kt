@@ -1,16 +1,28 @@
 package com.example.rust_doc.presentation.setup
 
+import android.app.Application
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.example.rust_doc.HomeScreenNav
 import com.example.rust_doc.data.local.PreferencesKeys
+import com.example.rust_doc.data.remote.SetupApp
+import com.example.rust_doc.presentation.home.HomeScreenViewModel
 import com.example.rust_doc.presentation.setup.models.Books
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.androidx.compose.koinViewModel
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
 
 class SetupViewModel(
+  private val application: Application, // Added Application context
   private val dataStore: DataStore<Preferences>,
 ) : ViewModel() {
 
@@ -21,45 +33,102 @@ class SetupViewModel(
     viewModelScope.launch {
       // get Home path
       dataStore.data.collect { preferences ->
-        {
-          val initPath = preferences[PreferencesKeys.HOME_PATH]
-          val isDownloaded = preferences[PreferencesKeys.IS_DOWNLOADED]
-          val bookLanguage = preferences[PreferencesKeys.BOOK_LANGUAGE]
-          _state.value = _state.value.copy(
-            initPath = initPath, isDownloaded = isDownloaded == "true", bookLanguage = bookLanguage
-          )
+        // Removed an extra pair of braces here that looked like a typo
+        val initPath = preferences[PreferencesKeys.HOME_PATH]
+        val isDownloaded = preferences[PreferencesKeys.IS_DOWNLOADED]
+        val bookLanguage = preferences[PreferencesKeys.BOOK_LANGUAGE]
+        _state.value = _state.value.copy(
+          initPath = initPath,
+          isDownloaded = isDownloaded == "true",
+          bookLanguage = bookLanguage ?: "English"
+        )
+      }
+    }
+  }
+
+  fun onAction(
+    setupAction: SetupAction, navigateHome: (initPath: String) -> Unit = {
+      println("Run Default Code : $it")
+    }
+  ) {
+    when (setupAction) {
+      is SetupAction.SelectBook -> {
+        _state.value = _state.value.copy(
+          selectedBookUrl = setupAction.bookURL, bookLanguage = setupAction.language
+        )
+      }
+
+      is SetupAction.DownloadZip -> {
+        _state.value =
+          _state.value.copy(isDownloading = true, downloadError = null, downloadedZipPath = null)
+        val zipFileURL: String = setupAction.bookURL
+        viewModelScope.launch {
+          try {
+            val downloadedPath = SetupApp().downloadFile(
+              application, zipFileURL,
+              onProgress = {
+                _state.value = _state.value.copy(downLoadProgress = it)
+              })
+            _state.value = _state.value.copy(
+              isDownloading = false,
+              downloadedZipPath = downloadedPath,
+              downloadError = null,
+              isExtracting = true,
+              downLoadProgress = 0f
+            )
+            println("Downloaded Successful :$downloadedPath ")
+            val indexHtmlPath: String =
+              SetupApp().extractZip(
+                downloadedPath,
+                application.dataDir.path + "/${_state.value.bookLanguage}",
+                onProgress = {
+                  _state.value = _state.value.copy(
+                    downLoadProgress = it
+                  )
+                },
+              )
+            _state.value = _state.value.copy(
+              isExtracting = false,
+              initPath = indexHtmlPath
+            )
+            // save  path to datastore `HOME_PATH`
+            dataStore.updateData { preferences ->
+              preferences.toMutablePreferences()
+                .apply {
+                  this[PreferencesKeys.HOME_PATH] = indexHtmlPath
+                  this[PreferencesKeys.IS_DOWNLOADED] = "true"
+                  this[PreferencesKeys.BOOK_LANGUAGE] = _state.value.bookLanguage
+                  this[PreferencesKeys.FAVORITE_PATHS] = emptySet()
+                  this[PreferencesKeys.HISTORY_OF_VISITED_PATH] = emptySet()
+                }
+            }
+            navigateHome(indexHtmlPath)
+            println("Extraction Successful $indexHtmlPath")
+          } catch (e: Exception) {
+            _state.value = _state.value.copy(
+              isDownloading = false,
+              downloadError = e.message ?: "Unknown download error"
+            )
+          }
         }
       }
     }
   }
 
-  fun onAction(setupAction: SetupAction){
-    when(setupAction){
-      is SetupAction.SelectBook -> {
-        _state.value = _state.value.copy(
-          selectedBookUrl = setupAction.bookURL
-        )
-      }
 
-      is SetupAction.DownloadZip -> {
-        TODO()
-      }
-      is SetupAction.ExtractZip -> {
-        TODO()
-      }
-      is SetupAction.NavigateToHome -> {
-        TODO()
-      }
-    }
-  }
 }
 
 
 data class SetupModelSate(
   val initPath: String? = null,
   val isDownloaded: Boolean? = null,
-  val bookLanguage: String? = null,
-  val selectedBookUrl : String = "https://ismailhosenismailjames.github.io/rust_book_multi_language/book/English.zip",
+  val bookLanguage: String = "English",
+  val isDownloading: Boolean = false, // Added for download state
+  val downLoadProgress: Float = 0f, // Added for download progress
+  val downloadError: String? = null, // Added for download error
+  val downloadedZipPath: String? = null, // Added for downloaded file path,
+  val isExtracting: Boolean = false,
+  val selectedBookUrl: String = "https://ismailhosenismailjames.github.io/rust_book_multi_language/book/English.zip",
   val listOfBooks: List<Books> = listOf<Books>(
     Books(
       link = "https://ismailhosenismailjames.github.io/rust_book_multi_language/book/Danske.zip",

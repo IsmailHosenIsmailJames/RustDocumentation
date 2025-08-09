@@ -23,6 +23,7 @@ fun DownloadBookFileScreen(
   downloadUrl: String,
   setupViewModel: SetupViewModel = koinViewModel()
 ) {
+  val state by setupViewModel.state.collectAsState()
   Box(
     modifier = Modifier.fillMaxSize(),
     contentAlignment = Alignment.Center,
@@ -30,11 +31,13 @@ fun DownloadBookFileScreen(
     Column(
       horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
     ) {
-      CircularProgressIndicator(
-        progress = { 0.5f },
-      )
+      CircularProgressIndicator()
       Spacer(modifier = Modifier.height(10.dp))
-      Text("Downloading...")
+      Text(if (state.isExtracting) {
+        "Extracting..."
+      } else {
+        "Downloading..."
+      })
       Text("Please Wait.")
     }
   }
