@@ -179,14 +179,6 @@ fun HomeTopBar(
       shape = RoundedCornerShape(100),
       singleLine = true,
     )
-  }, navigationIcon = {
-    AnimatedVisibility(visible = !homeState.isSearchTyping) {
-      IconButton(onClick = {}) {
-        Icon(
-          imageVector = Icons.Default.Menu, contentDescription = "Home"
-        )
-      }
-    }
   }, actions = {
     AnimatedVisibility(visible = !homeState.isSearchTyping) {
       Row {

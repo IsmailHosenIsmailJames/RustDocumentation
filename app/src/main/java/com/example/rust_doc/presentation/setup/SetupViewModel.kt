@@ -37,6 +37,8 @@ class SetupViewModel(
         val initPath = preferences[PreferencesKeys.HOME_PATH]
         val isDownloaded = preferences[PreferencesKeys.IS_DOWNLOADED]
         val bookLanguage = preferences[PreferencesKeys.BOOK_LANGUAGE]
+        println("Index HTML Path : $initPath")
+
         _state.value = _state.value.copy(
           initPath = initPath,
           isDownloaded = isDownloaded == "true",
@@ -91,7 +93,9 @@ class SetupViewModel(
               isExtracting = false,
               initPath = indexHtmlPath
             )
-            // save  path to datastore `HOME_PATH`
+
+            println("Index HTML Path : $indexHtmlPath")
+
             dataStore.updateData { preferences ->
               preferences.toMutablePreferences()
                 .apply {
