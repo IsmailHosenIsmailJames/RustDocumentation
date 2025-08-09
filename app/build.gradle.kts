@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-  namespace = "com.example.rust_doc"
+  namespace = "com.rust_book.example"
   compileSdk = 36
 
   defaultConfig {
-    applicationId = "com.example.rust_doc"
+    applicationId = "com.rust_book.example"
     minSdk = 24
     targetSdk = 36
     versionCode = 1
