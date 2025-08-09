@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -42,6 +43,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -55,6 +57,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.rust_book.example.SelectLanguageOfBookNav
+import com.rust_book.example.ui.theme.GreenGrey40
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -111,18 +114,28 @@ fun HomeScreen(
               color = colorScheme.surface,
               shape = RoundedCornerShape(10.dp)
             )
-            .padding(10.dp)
+            .padding(10.dp),
+
+          contentAlignment = Alignment.Center
         ) {
-          LazyColumn {
+          if(homeState.searchResult.isEmpty())Text("No Result Found") else LazyColumn {
             items(homeState.searchResult.size) {
               Text(
-                homeState.searchResult[it].split("book/").last(), modifier = Modifier
-                  .padding(10.dp)
+                homeState.searchResult[it].split("book/").last(),
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(3.dp)
                   .clickable {
                     homeViewModel.onAction(HomeScreenAction.ChangeCurrentDoc(homeState.searchResult[it]))
                     println(homeState.searchResult[it])
                     focusManager.clearFocus()
                   }
+                  .border(
+                    width = 1.dp,
+                    color = GreenGrey40,
+                    shape = RoundedCornerShape(10.dp)
+                  )
+                  .padding(10.dp)
               )
             }
           }
