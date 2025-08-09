@@ -49,6 +49,7 @@ fun SelectLanguageOfBook(
 ) {
 
   val setupModelSate: SetupModelSate by setupViewModel.state.collectAsState()
+  val homeScreenState by homeViewModel.state.collectAsState()
   val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
   Scaffold(
@@ -73,6 +74,9 @@ fun SelectLanguageOfBook(
           SetupAction.DownloadZip(setupModelSate.selectedBookUrl),
           navigateHome = {
             homeViewModel.justChangeCurrentDoc(it)
+            if (homeScreenState.language != null && homeScreenState.allDocsPath.isEmpty()) {
+              homeViewModel.getAllHtmlFileList(homeScreenState.language!!)
+            }
             navController.navigate(HomeScreenNav(initPath = it))
           }
 

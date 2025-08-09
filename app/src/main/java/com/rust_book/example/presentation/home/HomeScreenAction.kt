@@ -16,5 +16,7 @@ sealed class HomeScreenAction {
   data class WebViewInstance(val webView: WebView, val initPath: String) : HomeScreenAction()
   class ResetApp(navigateSetupPage: () -> Unit) : HomeScreenAction()
   data class HandleSystemBack(val onHandled: (Boolean) -> Unit) : HomeScreenAction()
+  data class ShowFavoritesPopup(val show: Boolean) : HomeScreenAction()
+  data class ShowHistoryPopup(val show: Boolean) : HomeScreenAction()
 
 }

@@ -12,4 +12,6 @@ data class HomeScreenState(
   val searchQuery: String? = null,
   val searchResult: List<String> = emptyList(),
   val isSearchTyping : Boolean = false,
+  val showFavoritesPopup: Boolean = false,
+  val showHistoryPopup: Boolean = false,
 )

@@ -124,12 +124,13 @@ class HomeScreenViewModel(
   fun onAction(action: HomeScreenAction) {
     when (action) {
       is ChangeCurrentDoc -> {
-        if (!(action.path != null && File(action.path).exists())) return
+
+
         action.path.let {
           val history = _state.value.historyOfVisitedPath.toMutableList().take(20)
             .toMutableList() // Limit history size
           if (history.firstOrNull() != it) { // Avoid duplicate entries at the top
-            history.add(0, it)
+            if (it != null) history.add(0, it)
           }
           viewModelScope.launch {
             dataStore.edit { dataBase ->
@@ -137,20 +138,21 @@ class HomeScreenViewModel(
             }
           }
           println("Action Path ${action.path}")
-          _webView?.loadUrl(action.path)
+       if(action.path!=null)   _webView?.loadUrl(action.path)
           _state.value = _state.value.copy(
             currentDocPath = it,
-            searchQuery = if (it.startsWith("http")) it else it.split("book/").last(),
+            searchQuery = if (it?.startsWith("http")==true) it else it?.split("book/")?.last(),
             historyOfVisitedPath = history,
             isThisFavorite = _state.value.allFavoritePath.contains(it)
           )
         }
-        if (File(action.path).exists()) {
+        println(File("XYZ ->" + action.path).exists().toString())
+        if (action.path!=null) {
           _webView?.loadUrl(action.path) // Make sure this is called
           _state.value = _state.value.copy(
             currentDocPath = action.path,
             searchQuery = if (action.path.startsWith("http")) action.path else action.path.split("book/")
-              ?.lastOrNull() ?: "",
+              .lastOrNull() ?: "",
             // historyOfVisitedPath = history, // Assuming history is updated correctly
             isThisFavorite = _state.value.allFavoritePath.contains(action.path)
           )
@@ -263,6 +265,14 @@ class HomeScreenViewModel(
           // Return false to indicate the WebView cannot go back, let system handle it
           action.onHandled(false)
         }
+      }
+
+      is ShowFavoritesPopup -> {
+        _state.value = _state.value.copy(showFavoritesPopup = action.show)
+      }
+
+      is ShowHistoryPopup -> {
+        _state.value = _state.value.copy(showHistoryPopup = action.show)
       }
     }
   }
