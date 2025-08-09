@@ -1,5 +1,6 @@
 package com.example.rust_doc.presentation.home
 
+import android.content.res.AssetManager
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -9,13 +10,18 @@ import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rust_doc.data.local.PreferencesKeys
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
-class HomeScreenViewModel(private val dataStore: DataStore<Preferences>) : ViewModel() {
+class HomeScreenViewModel(
+  private val dataStore: DataStore<Preferences>,
+) : ViewModel() {
   private val _state = MutableStateFlow(HomeScreenState())
   val state = _state.asStateFlow()
 
@@ -157,7 +163,8 @@ class HomeScreenViewModel(private val dataStore: DataStore<Preferences>) : ViewM
 
       is HomeScreenAction.GoHome -> {
         viewModelScope.launch {
-          val homePath = dataStore.data.first()[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html"
+          val homePath =
+            dataStore.data.first()[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html"
           onAction(HomeScreenAction.ChangeCurrentDoc(homePath)) // This will also update webview
           _webView?.loadUrl(homePath)
         }

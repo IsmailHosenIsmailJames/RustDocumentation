@@ -77,11 +77,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.rust_doc.HomeScreenNav
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(homeViewModel: HomeScreenViewModel = koinViewModel()) {
+fun HomeScreen(
+  nav: NavController,
+  initPath: String,
+  homeViewModel: HomeScreenViewModel = koinViewModel()
+) {
   val homeState by homeViewModel.state.collectAsState()
   val focusManager = LocalFocusManager.current
   val isDarkTheme = isSystemInDarkTheme()
@@ -308,5 +315,9 @@ fun RustDocumentationScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-  HomeScreen()
+  val previewNavController = NavHostController(LocalContext.current)
+  HomeScreen(
+    nav = previewNavController,
+    initPath = "file:///android_asset/index.html",
+  )
 }

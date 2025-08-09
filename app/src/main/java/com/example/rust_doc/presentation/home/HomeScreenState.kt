@@ -1,5 +1,7 @@
 package com.example.rust_doc.presentation.home
 
+import org.json.JSONObject
+
 data class HomeScreenState(
   val currentDocPath: String = "file:///android_asset/index.html",
   val homePath: String = "file:///android_asset/index.html",
