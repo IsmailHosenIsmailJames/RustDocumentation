@@ -80,6 +80,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.rust_doc.HomeScreenNav
+import com.example.rust_doc.SelectLanguageOfBookNav
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,7 +100,7 @@ fun HomeScreen(
     ) {
       focusManager.clearFocus()
     }, topBar = {
-      HomeTopBar(homeViewModel, homeState)
+      HomeTopBar(homeViewModel, homeState, navController = nav)
     }) { paddingValues ->
     Box(modifier = Modifier.padding(paddingValues)) {
       RustDocumentationScreen(
@@ -143,6 +144,7 @@ fun HomeScreen(
 fun HomeTopBar(
   homeViewModel: HomeScreenViewModel,
   homeState: HomeScreenState,
+  navController: NavController
 ) {
   val isFavorite = homeState.allFavoritePath.contains(homeState.currentDocPath)
   val context = LocalContext.current;
@@ -289,7 +291,12 @@ fun HomeTopBar(
       }, text = {
         Text("Reset App")
       }, onClick = {
-        homeViewModel.onAction(HomeScreenAction.ResetApp)
+        homeViewModel.onAction(
+          HomeScreenAction.ResetApp(
+            navigateSetupPage = {
+              navController.navigate(SelectLanguageOfBookNav)
+            })
+        )
         homeViewModel.onAction(HomeScreenAction.ShowMenu(false))
       })
     }
@@ -305,7 +312,7 @@ fun RustDocumentationScreen(
   modifier: Modifier = Modifier,
   initPath: String
 ) {
-  val docPath = homeState.currentDocPath
+  val docPath = homeState.currentDocPath ?: initPath
 
   AndroidView(
     modifier = modifier.fillMaxWidth(), factory = { context ->
@@ -314,7 +321,7 @@ fun RustDocumentationScreen(
         settings.javaScriptEnabled = true
         settings.allowFileAccess = true
         settings.domStorageEnabled = true
-        loadUrl(docPath ?: initPath)
+        loadUrl(docPath)
         homeViewModel.onAction(HomeScreenAction.WebViewInstance(this))
       }
     })

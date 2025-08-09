@@ -41,13 +41,13 @@ class HomeScreenViewModel(
     viewModelScope.launch {
       val preferences = dataStore.data.first()
       val favoritePaths = preferences[PreferencesKeys.FAVORITE_PATHS] ?: emptySet()
-      val homePath = preferences[PreferencesKeys.HOME_PATH] ?: "file:///android_asset/index.html"
+      val homePath = preferences[PreferencesKeys.HOME_PATH]
       val history = preferences[PreferencesKeys.HISTORY_OF_VISITED_PATH] ?: emptySet()
       _state.value = _state.value.copy(
         allFavoritePath = favoritePaths.toList(),
         homePath = homePath,
         currentDocPath = homePath, // Start at home path
-        searchQuery = homePath,
+        searchQuery = homePath?.split("book")?.last(),
         historyOfVisitedPath = history.toList()
       )
       // Update isThisFavorite based on initial currentDocPath
@@ -77,7 +77,7 @@ class HomeScreenViewModel(
   fun justChangeCurrentDoc(path: String) {
     _state.value = _state.value.copy(
       currentDocPath = path,
-      searchQuery = path,
+      searchQuery = path.split("book").last(),
       isThisFavorite = _state.value.allFavoritePath.contains(path)
     )
   }
@@ -99,7 +99,7 @@ class HomeScreenViewModel(
           _webView?.loadUrl(action.path)
           _state.value = _state.value.copy(
             currentDocPath = it,
-            searchQuery = it,
+            searchQuery = it.split("book").last(),
             historyOfVisitedPath = history,
             isThisFavorite = _state.value.allFavoritePath.contains(it)
           )
