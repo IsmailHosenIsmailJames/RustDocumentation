@@ -14,9 +14,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -121,7 +123,7 @@ fun BookView(
       .fillMaxWidth()
       .padding(5.dp)
       .background(
-        color = Color(0xFFF0F0F0),
+        color = MaterialTheme.colorScheme.surface,
         shape = RoundedCornerShape(10.dp)
       )
       .clickable(
