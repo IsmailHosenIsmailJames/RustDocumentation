@@ -1,7 +1,16 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.kotlin.serialization) // <- Add this line
+}
+
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+  keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 android {
@@ -18,16 +27,28 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
-  buildTypes {
-    getByName("release") {
-      isMinifyEnabled = true // Enable code shrinking
-      isShrinkResources = true // Enable resource shrinking (see below)
-      proguardFiles(
-        getDefaultProguardFile("proguard-android-optimize.txt"),
-        "proguard-rules.pro"
-      )
+  signingConfigs {
+    create("release") {
+      keyAlias = keystoreProperties["keyAlias"] as String
+      keyPassword = keystoreProperties["keyPassword"] as String
+      storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+      storePassword = keystoreProperties["storePassword"] as String
     }
   }
+
+  buildTypes {
+    release {
+      signingConfig = signingConfigs.getByName("release"){
+        isMinifyEnabled = true // Enable code shrinking
+        isShrinkResources = true // Enable resource shrinking (see below)
+        proguardFiles(
+          getDefaultProguardFile("proguard-android-optimize.txt"),
+          "proguard-rules.pro"
+        )
+      }
+    }
+  }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
